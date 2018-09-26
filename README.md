@@ -1,4 +1,5 @@
 # blog
+只有站在更高层次上，解决问题才会如云得水
 
 ## 目的：
 
@@ -12,7 +13,7 @@
 
 #### 2.知识体系梳理
 
-1. [算法梳理](https://github.com/youzaiyouzai666/blog/知识体系梳理/算法梳理.md)
+1. [算法梳理](https://github.com/youzaiyouzai666/blog/blob/master/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E6%A2%B3%E7%90%86/%E7%AE%97%E6%B3%95%E6%A2%B3%E7%90%86.md)
 
 #### 3.其它
 
