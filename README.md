@@ -15,5 +15,9 @@
 
 1. [算法梳理](https://github.com/youzaiyouzai666/blog/blob/master/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E6%A2%B3%E7%90%86/%E7%AE%97%E6%B3%95%E6%A2%B3%E7%90%86.md)
 
-#### 3.其它
+2. [性能优化]()
+
+3. [事件体系todo]()
+
+#### 3.源码阅读todo
 
