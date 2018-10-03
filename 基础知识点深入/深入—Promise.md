@@ -1,228 +1,9 @@
-# 面试复盘—高德
 
-## 1.收获
-
-1. 对于知识细节把控有待加强（很多知识，只是自以为掌握了）
-2. 如何 证明知识正在掌握了
-
-## 2. ES6箭头函数
-
-> 参考：[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
-
-1. 箭头[不绑定`this`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions#%E4%B8%8D%E7%BB%91%E5%AE%9Athis)
-
-   箭头函数内没有this，内部`this`是它只会从自己的作用域链的上一层继承this，
-
-   深入理解 可以参考 [深入理解JavaScript执行上下文](https://github.com/mqyqingfeng/Blog/issues/8)
-
-2. 通过` call`或 `apply`，`bind`调用
-
-   因为箭头函数 **没有this**，所以 直接忽略第一个参数
-
-3. `arguments`对象
-
-   箭头函数 内部没有自己 `arguments`，但内部可以调用，但是外层的
-
-   ```javascript
-   var arguments = [1, 2, 3];
-   var arr = () => arguments[0];
-   
-   arr(); // 1
-   
-   function foo(n) {
-     var f = () => arguments[0] + n; // 隐式绑定 foo 函数的 arguments 对象. arguments[0] 是 n
-     return f();
-   }
-   
-   foo(1); // 2
-   ```
-
-   但可以使用 `args`代替
-
-4. 不能使用`new` 和`prototype`操作符
-
-   ```javascript
-   var Foo = () => {};
-   var foo = new Foo(); // TypeError: Foo is not a constructor
-   ```
-
-   ```javascript
-   var Foo = () => {};
-   console.log(Foo.prototype); // undefined
-   ```
-
-5. 函数 返回一个对象
-
-   ```javascript
-   //这两种写法都是错误的
-   //因为 "{}"被当成块级作用域了，而没有被解析成一个对象
-   var func = () => { foo: 1 };               
-   // Calling func() returns undefined!
-   
-   var func = () => { foo: function() {} };   
-   // SyntaxError: function statement requires a name
-   ```
-
-   ```javascript
-   //正确写法是 用（）包起来
-   var func = () => ({foo: 1});
-   ```
-
-6. 其他
-
-   [解析顺序](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions#%E8%A7%A3%E6%9E%90%E9%A1%BA%E5%BA%8F)
-
-   箭头函数 闭包
-
-   ```javascript
-   // 标准的闭包函数
-   function A(){
-         var i=0;
-         return function b(){
-                 return (++i);
-         };
-   };
-   
-   var v=A();
-   v();    //1
-   v();    //2
-   
-   
-   //箭头函数体的闭包（ i=0 是默认参数）
-   var Add = (i=0) => {return (() => (++i) )};
-   var v = Add();
-   v();           //1
-   v();           //2
-   
-   //因为仅有一个返回，return 及括号（）也可以省略
-   var Add = (i=0)=> ()=> (++i);
-   ```
-
-7. 多层箭头函数中this问题
-
-   ```javascript
-   //因为箭头函数中没有this，是上一层执行上线问中的this，本例中最外层是window 
-   var obj = {
-   	fn:()=>{
-   		return ()=>{
-   			console.log(this);
-           }
-       }
-   }
-   obj.fn()();//window
-   ```
-
-   ```javascript
-   var obj = {
-   	fn:()=>{
-   		return ()=>{
-   			console.log(this);//this 还是window
-           }
-       }
-   }
-   obj.test = obj.fn();
-   obj.test();//window 
-   ```
-
-   
-
-## 3. 继承
-
-### 3.1 ES5 继承
-
-步骤：
-
-1. 子类构造器中调用父类构造器—— Super.call(this)
-2. Sub.prototype = Object.create(Super.prototype);
-
-			也可以写成Sub.prototype = new Super();
-		要将它赋值为Object.create(Super.prototype)，而不是直接等于Super.prototype。否则后面两行对Sub.prototype的操作，会连父类的原型Super.prototype一起修改掉
-		Object.create第二个参数，使constructor不能枚举（enumberable:false）——因为constructor本身是不可枚举的
-
-3. Sub.prototype.constructor = Sub;
-
-
-
-### 3.2 多重继承
-
-```javascript
-function MyClass() {
-     SuperClass.call(this);
-     OtherSuperClass.call(this);
-}
-
-// 继承一个类
-MyClass.prototype = Object.create(SuperClass.prototype);
-// 混合其它
-Object.assign(MyClass.prototype, OtherSuperClass.prototype);
-// 重新指定constructor
-MyClass.prototype.constructor = MyClass;
-
-MyClass.prototype.myMethod = function() {
-     // do a thing
-};
-```
-
-API 深入：
-
-1. `Object.create()`
-
-   [Polyfill](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create#Polyfill) 
-
-   ```javascript
-   //通过 polyfill Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。 
-   if (typeof Object.create !== "function") {
-       Object.create = function (proto, propertiesObject) {
-           if (typeof proto !== 'object' && typeof proto !== 'function') {
-               throw new TypeError('Object prototype may only be an Object: ' + proto);
-           } else if (proto === null) {
-               throw new Error("This browser's implementation of Object.create is a shim and doesn't support 'null' as the first argument.");
-           }
-   
-           if (typeof propertiesObject != 'undefined') throw new Error("This browser's implementation of Object.create is a shim and doesn't support a second argument.");
-   
-           function F() {}
-           F.prototype = proto;//Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。 
-   
-           return new F();
-       };
-   }
-   ```
-
-   `Object.create()`第二个参数`propertiesObject `
-
-   ```javascript
-   Object.create(superCtor.prototype, {
-       constructor: {
-         value: ctor,
-         enumerable: false,
-         writable: true,
-         configurable: true
-       }
-     });
-   ```
-
-#### 3.ES6继承及与ES5继承不同
-
-1. 主要是this对象创建顺序不同
-
- 
-
-### 4. css相关
-
-1. box-sizing
-
-   [MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-sizing)
-
-   box-sizing 三个值   content-box,padding-box,border-box;(没有 margin-box) 
-
-2. 弹性盒子
-
-### 5.Promise
+# Promise
 
 > 参考：[30分钟，让你彻底明白Promise原理](https://segmentfault.com/a/1190000009478377)  [阮一峰ES6入门](http://es6.ruanyifeng.com/#docs/promise)
 
-1. 实现原理
+### 1. 基本实现原理
 
    ```javascript
    //极简实现
@@ -244,7 +25,7 @@ API 深入：
    }
    ```
 
-2. finnaly 实现
+### 2. finnaly 实现
 
    ```javascript
    
@@ -259,16 +40,19 @@ API 深入：
 
    
 
-3. Promse API
+### 3. Promse API
 
    Promise API 分为 :
 
-    	1. 静态方法 
+	1. 静态方法 
+
    	2. `prototype`上方法
 
-4. Prmise 链式调用——不管怎样 返回值都是个`Promise`
+### 4. Prmise 链式调用
 
    首先来看看 `Promise.prototype.then()`返回一个`Promise`,但`Promise`内部有返回值，
+
+   且 返回值，可以是个值，也可能就是一个新`Promise`
 
    具体规则如下：
 
@@ -298,16 +82,13 @@ API 深入：
        console.log(data) // 1111
    })
    ```
+### 5. 异常处理
 
-   
-
-5. 异常处理
-
-   > 异常分类：
-   >
-   > 1. 同步异常
-   > 2. 异步异常 无法`try-catch` 得到
-   > 3. 多层Promise嵌套，获异常取具体的一个promise异常，而不是全部
+>   异常分类：
+>
+>   1. 同步异常
+>   2. 异步异常 无法`try-catch` 得到
+>   3. 多层Promise嵌套，获异常取具体的一个promise异常，而不是全部
 
    1. Promise 异常处理基本套路
 
@@ -482,26 +263,32 @@ API 深入：
       })
       ```
 
-      **场景二** 
+      **场景二** Promise 状态只能改变一次
 
       ```javascript
-      //异常丢失
-      const promise2 = new Promise((resolve, reject) => {
-          reject('no')
-          console.log('reject after')
-        throw Error('no') //异常丢失
-      })
-      promise1.then(result => {
-          console.log(result) // 永远不会执行
-      }).catch(error => {
-          console.log('err',error) // no
-      }).catch(error => {
-          console.log('err2',error) // 也无法捕获异常
-      })
+       //异常丢失
+         const promise2 = new Promise((resolve, reject) => {
+             reject('no')
+             console.log('reject after')
+           throw Error('no') //异常丢失
+         })
+         promise1.then(result => {
+             console.log(result) // 永远不会执行
+         }).catch(error => {
+             console.log('err',error) // no
+         }).catch(error => {
+             console.log('err2',error) // 也无法捕获异常
+         })
       ```
 
       
 
+   
 
-## 6. 安全相关
+   
 
+
+
+   
+
+   
