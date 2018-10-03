@@ -1,6 +1,12 @@
 
 # Promise
 
+> 主要内容：
+>
+> 1. promise基本实现原理
+> 2. promise 使用中难点（链式调用，API基本上返回都是一个新Promise，及参数传递）
+> 3. promise 对异常处理
+>
 > 参考：[30分钟，让你彻底明白Promise原理](https://segmentfault.com/a/1190000009478377)  [阮一峰ES6入门](http://es6.ruanyifeng.com/#docs/promise)
 
 ### 1. 基本实现原理
@@ -44,7 +50,7 @@
 
    Promise API 分为 :
 
-	1. 静态方法 
+1. 静态方法 
 
    	2. `prototype`上方法
 
