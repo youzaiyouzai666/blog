@@ -9,12 +9,16 @@
 > ​	对比Promise与Async
 >
 > ​	异常处理
+>
+> 参考：
+>
+> ​	[异步函数 - 提高 Promise 的易用性](https://developers.google.com/web/fundamentals/primers/async-functions?hl=zh-cn#_11)
 
 ## 1. 基本语法
 
 基本语法是  方法头 添加关键字`async`,在异步前 添加`await`
 
-#### 1.API
+#### 1. API
 
 核心 API  就async 与 await，具体 直接将MDN中解释拿来用
 
@@ -109,7 +113,7 @@ asyncPrint('hello world', 50).then(function(d){
 
 ## 2. Async对比Promise优势
 
-#### 1.解决then 多层回调
+#### 1. 解决then 多层回调
 
 参考：[理解 JavaScript 的 async/await](https://segmentfault.com/a/1190000007535316)
 
@@ -210,7 +214,11 @@ async function getProcessedData(url) {
 //注意，在上述示例中，return 语句中没有 await 操作符，因为 async function 的返回值将隐式传递给 Promise.resolve。
 ```
 
-## 3.并行
+## 3.Async并行
+
+#### 0. 背景
+
+
 
 #### 1. 基本并行处理
 
@@ -225,7 +233,9 @@ let res1 = await func1Promise
 let res2 = await func2Promise
 ```
 
-#### 2.深入理解并行
+#### 2. 深入理解并行
+
+上文基本的并行，并不是 正在的并行
 
 参考：[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function#%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90)
 
