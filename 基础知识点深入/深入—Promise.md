@@ -1,5 +1,7 @@
 
-# Promise
+# Promise与async 
+
+
 
 > 主要内容：
 >
@@ -198,17 +200,18 @@
       ```
 
       ```javascript
-      //
-      Promise.reject().then(()=>{
-        console.log(2222);
-      },(err)=>{
-      	console.log(333,err) //reject 
-      	return err；
-      }).then((data)=>{
-          console.log(4444,data)；//resolve 执行
-      },(err)=>{
-        console.log(1111,err); //未执行
-      })
+      //如果 在链式调用中，then 第二个参数 catch住了异常，没有return Promise.reject()则后续链式调用返回rosolve状态pormise
+      Promise.reject()
+         .then(()=>{
+            console.log(111);
+          },(err)=>{
+              console.log(111,err) //reject 
+              return err；
+          }).then((data)=>{
+              console.log(222,data)；//resolve 执行
+          },(err)=>{
+            console.log(222,err); //未执行
+          })
       //4444 没有执行 1111
       ```
 
@@ -287,7 +290,35 @@
          })
       ```
 
-      
+### 6.async
+
+1. 基本语法
+
+   ```javascript
+   function timeout(ms) {
+     return new Promise((resolve) => {
+       setTimeout(resolve, ms);
+     });
+   }
+   
+   async function asyncPrint(value, ms) {
+     await timeout(ms);
+     console.log(value);
+     return value;   //类似 return Promise.resolve(value)
+   }
+   //async 返回一个promise
+   asyncPrint('hello world', 50).then(function(d){
+      console.log('then',d);
+   });
+   /** 打印
+   hello world
+   then hello world
+   */
+   ```
+
+   
+
+
 
    
 
