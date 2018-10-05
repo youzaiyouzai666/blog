@@ -74,6 +74,8 @@ function get(url) {
 
    Promise API 分为 :[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then#%E8%BF%94%E5%9B%9E%E5%80%BC)
 
+> 这里不大段罗列API 只拿then来深入聊聊。（目录结构是告诉分为静态方法及prototype上的方法，具体不同参考JavaScript原型链）
+
 #### 1.静态方法
 
 #### 2.`prototype`上方法
@@ -105,33 +107,38 @@ function get(url) {
 	3. 返回一个function，但没有return ，则相当于 then(null)
   */
 //对比1 穿透问题  返回是'foo' 而不是 'bar'
-Promise.resolve('foo').then(Promise.resolve('bar')).then(function(result){
-    console.log(result)
-})
+Promise.resolve('foo')
+    .then(Promise.resolve('bar'))
+    .then(function(result){
+    	console.log(result)
+	})
 
 
 //对比2  打印undefined
-Promise.resolve('foo').then(function(){Promise.resolve('bar')}).then(function(result){
-    console.log(result)
-})
+Promise.resolve('foo')
+    .then(function(){Promise.resolve('bar')})
+    .then(function(result){
+        console.log(result)
+    })
  
 
 //对比3  返回 'bar'
-Promise.resolve('foo').then(function() {
-    return Promise.resolve('bar')
-}).then(function(result) {
-    console.log(result)
-})
+Promise.resolve('foo')
+    .then(function() {
+        return Promise.resolve('bar')
+    }).then(function(result) {
+        console.log(result)
+    })
 ```
 
 
 
-## 2. Prmise 链式调用
+## 2. Prmise 链式调用——重点（难点）
 
-> 链式调用 
+> 链式调用
 >
->  	1.  核心就是 then catch 等方法返回一个Promise
-> 	2.  链式 调用数据传递（注意）
+>    	1.   核心就是 then catch 等方法返回一个Promise
+>    	2.   链式 调用数据传递（注意）
 
 #### 1. 值传递问题
 
@@ -153,12 +160,14 @@ Promise.resolve('foo').then(function() {
 一个实际的例子:（拿来大神的例子[JavaScript Promise：简介](https://developers.google.com/web/fundamentals/primers/promises?hl=zh-cn#_4)）
 
 ```javascript
+//step 0
 get('story.json').then(function(response) {
   console.log("Success!", response);
 })
 ```
 
 ```javascript
+//step 1
 //这里的 response 是 JSON，但是我们当前收到的是其纯文本。也可以设置XMLHttpRequest.responseType =json
 get('story.json').then(function(response) {
   return JSON.parse(response);
@@ -168,6 +177,7 @@ get('story.json').then(function(response) {
 ```
 
 ```javascript
+//step 2
 //由于 JSON.parse() 采用单一参数并返回改变的值，因此我们可以将其简化为：
 get('story.json').then(JSON.parse).then(function(response) {
   console.log("Yey JSON!", response);
@@ -175,6 +185,7 @@ get('story.json').then(JSON.parse).then(function(response) {
 ```
 
 ```javascript
+//step 3
 function getJSON(url) {
   return get(url).then(JSON.parse);
 }
@@ -197,7 +208,15 @@ Promise.resolve(111).then(function(d){
 // 111,222
 ```
 
+#### 3. 链式调用异常处理
+
+参见后文，异常处理。
+
+
+
 ## 3. 并行问题forEach处理
+
+上面是多个链式调用，下面聊聊 并行处理
 
 当多个异步并行执行时，每个异步代码执行时间不定，所以多个异步执行结束时间无法确定（无法确定结束完时间）。
 
@@ -323,10 +342,12 @@ function Promise1(fn) {
 
 具体 `Promise`实现有一套官方规范，具体参见[Promises/A+](https://promisesaplus.com/)
 
+
+
 ## 5. finnaly 实现
 
    ```javascript
-   
+//版本一 finnaly 表示，不管resolve,reject 都执行   
    Promise.prototype.finally = function (callback) {
      let P = this.constructor;
      return this.then(
@@ -336,6 +357,25 @@ function Promise1(fn) {
    };
    ```
 
+```javascript
+//版本二
+Promise.prototype.finally = function (callback) {
+     return this.then(
+       value  => Promise.resolve(callback()).then(() => value),
+       reason => Promise.resolve(callback()).then(() => { throw reason })
+     );
+   };
+```
+
+版本一 版本二 两种不同的写法，各有利弊。具体参见 JavaScript原型链
+
+```javascript
+//test
+Promise.resolve(1).finally((d)=>{console.log(d)})
+Promise.reject(1).finally((d)=>{console.log(d)})
+```
+
+
 
 ## 6. 异常处理
 
@@ -344,6 +384,20 @@ function Promise1(fn) {
 >   1. 同步异常
 >   2. 异步异常 无法`try-catch` 得到
 >   3. 多层Promise嵌套，获异常取具体的一个promise异常，而不是全部
+
+#### 0. try-catch 无法捕获异步异常
+
+> 因为异步的执行上下文 与try-catch 不是同一个，所以无法捕获
+
+```javascript
+//一个简单例子
+try{
+  Promise.reject(2)
+}catch(e){
+ console.log(11111111)
+}
+//VM1279:2 Uncaught (in promise) 2
+```
 
 #### 1. Promise 异常处理基本套路
 
