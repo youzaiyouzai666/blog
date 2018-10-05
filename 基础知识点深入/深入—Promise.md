@@ -74,15 +74,17 @@ function get(url) {
 
    Promise API 分为 :[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then#%E8%BF%94%E5%9B%9E%E5%80%BC)
 
-1. 静态方法
+#### 1.静态方法
 
-2. `prototype`上方法
+#### 2.`prototype`上方法
 
-     `Promise.prototype.then()` 来分析
+1. `Promise.prototype.then()` 来分析
 
-     	首先来看看 `Promise.prototype.then()`返回一个`Promise`,但`Promise`内部有返回值，且 返回值，可以是个值，也可能就是一个新`Promise`
+```
+首先来看看 `Promise.prototype.then()`返回一个`Promise`,但`Promise`内部有返回值，且 返回值，可以是个值，也可能就是一个新`Promise`
+```
 
-       *具体规则如下：*
+  *具体规则如下：*
 
     - *如果then中的回调函数返回一个值，那么then返回的Promise将会成为接受状态，并且将返回的值作为接受状态的回调函数的参数值。*
     - *如果then中的回调函数抛出一个错误，那么then返回的Promise将会成为拒绝状态，并且将抛出的错误作为拒绝状态的回调函数的参数值。*
@@ -95,6 +97,34 @@ function get(url) {
     参考：[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then#%E8%BF%94%E5%9B%9E%E5%80%BC)
     
     是不是 觉得很晕，没关系，可以先看 下一节，看完后，再回过来看具体的说明
+
+```javascript
+/*then 回调中，
+	1. 返回是return function,则返回一个Promise 【参见对比3代码】
+	2. 不是一个function,则 then 将创建一个没有经过回调函数处理的新 Promise 对象，这个新 Promise 只是简单地接受调用这个 then 的原 Promise 的终态作为它的终态。（MDN中解释）【参见对比1代码】
+	3. 返回一个function，但没有return ，则相当于 then(null)
+  */
+//对比1 穿透问题  返回是'foo' 而不是 'bar'
+Promise.resolve('foo').then(Promise.resolve('bar')).then(function(result){
+    console.log(result)
+})
+
+
+//对比2  打印undefined
+Promise.resolve('foo').then(function(){Promise.resolve('bar')}).then(function(result){
+    console.log(result)
+})
+ 
+
+//对比3  返回 'bar'
+Promise.resolve('foo').then(function() {
+    return Promise.resolve('bar')
+}).then(function(result) {
+    console.log(result)
+})
+```
+
+
 
 ## 2. Prmise 链式调用
 
@@ -458,7 +488,43 @@ Promise.reject()
 //4444 没有执行 1111
 ```
 
-#### 4. 异常丢失
+#### 4. 如何停止一个Promise链
+
+```javascript
+//简化一个模型，
+new Promise(function(resolve, reject) {
+  resolve(42)
+})
+  .then(function(value) {
+    // "Big ERROR!!!" ——出现错误后，没有必要执行后续代码
+  })//但代码，是无论return||throw，都会执行后续catch||then,async 可以解决
+  .catch()
+  .then()
+  .then()
+  .catch()
+  .then()
+```
+
+```javascript
+//网上的一个解决方案，但后续回调都无法被GCC回收；
+//其实本质是返回一个无状态的Promise,让其永远处于pending状态
+new Promise(function(resolve, reject) {
+  resolve(42)
+})
+  .then(function(value) {
+    // "Big ERROR!!!"
+   return new Promise(function(){})
+  })
+  .catch()
+  .then()
+  .then()
+  .catch()
+  .then()
+```
+
+其实 `Promise`异常，麻烦再链式调用，异常处理位置真不好处理。
+
+#### 5. 异常丢失
 
 很多情况下，promise无法捕获异常
 
