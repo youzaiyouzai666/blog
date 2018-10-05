@@ -1,11 +1,12 @@
 
-# Promise与async 
+# Promise 
 
 > 主要内容：
 >
 > 1. promise基本实现原理
 > 2. promise 使用中难点（链式调用，API基本上返回都是一个新Promise，及参数传递）
 > 3. promise 对异常处理
+> 4. promise 简单实现及规范
 >
 > 参考：
 >
@@ -86,11 +87,11 @@ function get(url) {
     - *如果then中的回调函数返回一个已经是接受状态的Promise，那么then返回的Promise也会成为接受状态，并且将那个Promise的接受状态的回调函数的参数值作为该被返回的Promise的接受状态回调函数的参数值。*
     - *如果then中的回调函数返回一个已经是拒绝状态的Promise，那么then返回的Promise也会成为拒绝状态，并且将那个Promise的拒绝状态的回调函数的参数值作为该被返回的Promise的拒绝状态回调函数的参数值。*
     - *如果then中的回调函数返回一个未定状态（pending）的Promise，那么then返回Promise的状态也是未定的，并且它的终态与那个Promise的终态相同；同时，它变为终态时调用的回调函数参数与那个Promise变为终态时的回调函数的参数是相同的。*
-
+    
     **上面是官方规则，神马，具体白话就是 核心是 返回参数及返回promise的状态**
-
+    
     参考：[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then#%E8%BF%94%E5%9B%9E%E5%80%BC)
-
+    
     是不是 觉得很晕，没关系，可以先看 下一节，看完后，再回过来看具体的说明
 
 ## 2. Prmise 链式调用
@@ -126,7 +127,7 @@ get('story.json').then(function(response) {
 ```
 
 ```javascript
-//这里的 response 是 JSON，但是我们当前收到的是其纯文本。
+//这里的 response 是 JSON，但是我们当前收到的是其纯文本。也可以设置XMLHttpRequest.responseType =json
 get('story.json').then(function(response) {
   return JSON.parse(response);
 }).then(function(response) {
@@ -148,7 +149,7 @@ function getJSON(url) {
 //getJSON() 仍返回一个 promise，该 promise 获取 URL 后将 response 解析为 JSON。
 ```
 
-#### 2.异步操作队列
+#### 2. 异步操作队列
 
 上面至今是`return 值 `，直接调用 下一下`then`就OK了。
 
@@ -164,33 +165,133 @@ Promise.resolve(111).then(function(d){
 // 111,222
 ```
 
+## 3. 并行问题forEach处理
+
+当多个异步并行执行时，每个异步代码执行时间不定，所以多个异步执行结束时间无法确定（无法确定结束完时间）。
+
+所以需要特殊处理。
+
+```javascript
+//forEach 顺便无法保证
+var arrs = [1,2,3,4];
+var p = function(d){
+	return new Promise((resolve)=>{
+       setTimeout(()=>{
+			resolve(d);
+		},Math.random()*1000);//因为异步执行时间无法确认
+    });
+};
+arrs.forEach(function(arr){
+  p(arr).then((d)=>{
+    console.log(d);
+  })
+});
+```
+
+```javascript
+//使用 Promise.all 来让返回有序
+var arrs = [1,2,3,4];
+var p = function(d){
+	return new Promise((resolve)=>{
+       setTimeout(()=>{
+			resolve(d);
+		},Math.random()*1000);//因为异步执行时间无法确认
+    });
+};
+var ps = [];
+arrs.forEach(function(arr){
+  ps.push(p(arr));
+});
+Promise.all(ps).then(values=>{
+  console.log(values);//[1,2,3,4]
+})
+```
 
 
-## 3. 基本实现原理
 
-主要是 如何自己实现一个简单的`Promise`
+## 4. 基本实现原理—实现一个简单Promise
+
+自己手撸一个简单的`Promise`
+
+#### 1. 版本1—极简实现
 
    ```javascript
-   //极简实现
-   function Promise(fn) {
-       var value = null,
-           callbacks = [];  //callbacks为数组，因为可能同时有很多个回调
-   
-       this.then = function (onFulfilled) {
-           callbacks.push(onFulfilled);
-       };
-   
-       function resolve(value) {
-           callbacks.forEach(function (callback) {
-               callback(value);
-           });
-       }
-   
-       fn(resolve);
-   }
+//版本1 极简实现
+function Promise1(fn) {
+    var value = null,
+        callbacks = [];  //callbacks为数组，因为可能同时有很多个回调
+
+    this.then = function (onFulfilled) {
+        callbacks.push(onFulfilled);
+        return this;//支持链式调用 Promise.then().then
+    };
+
+    function resolve(value) {
+        callbacks.forEach(function (callback) {
+            callback(value);
+        });
+    }
+
+    fn(resolve);
+}
+//Test 对上面实现，写一个简单的测试
+new Promise1(function(resolve){
+    setTimeout(function(){
+        resolve(1);
+    },100);
+}).then(function(d){
+    console.log(d);
+})
+//1
    ```
 
-## 4. finnaly 实现
+#### 2. 版本2—加入延时机制
+
+```javascript
+//上面版本1 可能导致问题
+//在then注册回调之前，resolve就已经执行了
+new Promise1(function(resolve){
+    console.log(0)
+	resolve(1);
+}).then(function(d){
+   console.log(d);
+})
+// 1 不会打印
+```
+
+```javascript
+//版本2 解决
+function Promise1(fn) {
+    var value = null,
+        callbacks = [];  //callbacks为数组，因为可能同时有很多个回调
+
+    this.then = function (onFulfilled) {
+        callbacks.push(onFulfilled);
+        return this;//支持链式调用 Promise.then().then
+    };
+
+    function resolve(value) {
+       setTimeout(function(){
+        callbacks.forEach(function (callback) {
+            callback(value);
+        }),0});
+    }
+
+    fn(resolve);
+}
+```
+
+#### 3. 版本3—状态
+
+`Promise`有三种状态`pending`、`fulfilled`、`rejected` ，且状态变化时单向的。
+
+具体细节就是 在`then`,`resolve`中加状态判断，具体代码略
+
+#### 4. Promises/A+
+
+具体 `Promise`实现有一套官方规范，具体参见[Promises/A+](https://promisesaplus.com/)
+
+## 5. finnaly 实现
 
    ```javascript
    
@@ -204,7 +305,7 @@ Promise.resolve(111).then(function(d){
    ```
 
 
-## 5. 异常处理
+## 6. 异常处理
 
 >   异常分类：
 >
@@ -427,31 +528,9 @@ fetch().then((resolve, reject) => {
        console.log('err2',error) // 也无法捕获异常
    })
 ```
-## 6.async
+## 7.async
 
-1. 基本语法
-
-   ```javascript
-   function timeout(ms) {
-     return new Promise((resolve) => {
-       setTimeout(resolve, ms);
-     });
-   }
-   
-   async function asyncPrint(value, ms) {
-     await timeout(ms);
-     console.log(value);
-     return value;   //类似 return Promise.resolve(value)
-   }
-   //async 返回一个promise
-   asyncPrint('hello world', 50).then(function(d){
-      console.log('then',d);
-   });
-   /** 打印
-   hello world
-   then hello world
-   */
-   ```
+async是 Promise 更高一层的封装，具体参见[深入浅出Async](https://github.com/youzaiyouzai666/blog/blob/master/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B7%B1%E5%85%A5/%E6%B7%B1%E5%85%A5%E2%80%94Async.md)
 
    
 
