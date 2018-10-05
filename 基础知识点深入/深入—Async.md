@@ -30,14 +30,16 @@
 
     ```javascript
     //语法
-    [return_value] = await expression;
-    /*
-        表达式
-        一个 Promise 对象或者任何要等待的值。
-        返回值
-        返回 Promise 对象的处理结果。如果等待的不是 Promise 对象，则返回该值本身。
-    */	
+    [return_value] = await expression;   //注意，返回并不是一个Promise对象，而是结果
     ```
+
+    > 表达式:
+    >     	一个 Promise 对象或者任何要等待的值。
+    > 返回值:  
+    >
+    > ​	(注意，返回并不是一个Promise对象，而是结果)
+    >     	返回 Promise 对象的处理结果。
+    >     	如果等待的不是 Promise 对象，则返回该值本身。
 
     描述：
 
@@ -47,11 +49,14 @@
 
     ​	另外，如果 await 操作符后的表达式的值不是一个 Promise，那么该值将被转换为一个已正常处理的 Promise。
 
-#### 2. 实践
+    
+
+#### 2. 实践—简单用法
 
 这会使 async 函数暂停执行，等待表达式中的 Promise 解析完成后继续执行 async 函数并返回解决结果。
 
 ```javascript
+//用法1
 /*
 	async 返回一个 Promise
 	1. return 值(value)，则返回 Promise.resolve(value)
@@ -67,6 +72,7 @@ console.log(result);//返回一个promise对象
 
 
 ```javascript
+//用法2
 //async 函数中可能会有 await 表达式，这会使 async 函数暂停执行，等待表达式中的 Promise 解析完成后继续执行 async 函数并返回解决结果。
 function timeout(ms) {
   return new Promise((resolve) => {
@@ -90,7 +96,7 @@ then hello world
 ```
 
 ```javascript
-//await 必须的在 async方法内
+//await 必须的在 async方法内，否则会报错
 function timeout(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
@@ -182,21 +188,21 @@ async function doIt() {
 doIt();
 ```
 
-#### 2.带catch
+#### 2.  带catch
 
 ```javascript
 //promise 版本
 function getProcessedData(url) {
   return downloadData(url) // returns a promise
-    .catch(e => {
-      return downloadFallbackData(url)  // 返回一个 promise 对象
-        .then(v => {
-          return processDataInWorker(v); // 返回一个 promise 对象
-        }); 
-    })
-    .then(v => {
-      return processDataInWorker(v); // 返回一个 promise 对象
-    });
+            .catch(e => {
+                return downloadFallbackData(url)  // 返回一个 promise 对象
+                        .then(v => {
+                            return processDataInWorker(v); // 返回一个 promise 对象
+                        }); 
+            })
+            .then(v => {
+                return processDataInWorker(v); // 返回一个 promise 对象
+            });
 }
 ```
 
@@ -218,7 +224,9 @@ async function getProcessedData(url) {
 
 #### 0. 背景
 
+> 对比 [promise 并行处理](https://github.com/youzaiyouzai666/blog/blob/master/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B7%B1%E5%85%A5/%E6%B7%B1%E5%85%A5%E2%80%94Promise.md#3-%E5%B9%B6%E8%A1%8C%E9%97%AE%E9%A2%98foreach%E5%A4%84%E7%90%86)
 
+前面解决都是 一个promise执行完后，再执行新的promise;而下面讨论是，两个Promise如何并行
 
 #### 1. 基本并行处理
 
@@ -237,5 +245,178 @@ let res2 = await func2Promise
 
 上文基本的并行，并不是 正在的并行
 
-参考：[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function#%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90)
+参考：[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function#%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90) 下面代码参考自 MDN
+
+```javascript
+var resolveAfter2Seconds = function() {
+  console.log("starting slow promise");
+  return new Promise(resolve => {
+    setTimeout(function() {
+      resolve(20);
+      console.log("slow promise is done");
+    }, 2000);
+  });
+};
+
+var resolveAfter1Second = function() {
+  console.log("starting fast promise");
+  return new Promise(resolve => {
+    setTimeout(function() {
+      resolve(10);
+      console.log("fast promise is done");
+    }, 1000);
+  });
+};
+
+var sequentialStart = async function() {
+  console.log('==SEQUENTIAL START==');
+
+  // 如果 await 操作符后的表达式不是一个 Promise 对象, 则它会被转换成一个 resolved 状态的 Promise 对象
+  const slow = await resolveAfter2Seconds();
+
+  const fast = await resolveAfter1Second();
+  console.log(slow);
+  console.log(fast);
+}
+
+var concurrentStart = async function() {
+  console.log('==CONCURRENT START with await==');
+  const slow = resolveAfter2Seconds(); // 立即启动计时器
+  const fast = resolveAfter1Second();
+
+  console.log(await slow);
+  console.log(await fast); // 等待 slow 完成, fast 也已经完成。
+}
+
+var stillSerial = function() {
+  console.log('==CONCURRENT START with Promise.all==');
+  Promise.all([resolveAfter2Seconds(), resolveAfter1Second()]).then(([slow, fast]) => {
+    console.log(slow);
+    console.log(fast);
+  });
+}
+
+var parallel = function() {
+  console.log('==PARALLEL with Promise.then==');
+  resolveAfter2Seconds().then((message)=>console.log(message)); // in this case could be simply written as console.log(resolveAfter2Seconds());
+  resolveAfter1Second().then((message)=>console.log(message));
+}
+
+sequentialStart(); // sequentialStart 总共花了 2+1 秒
+// 等到 sequentialStart() 完成
+setTimeout(concurrentStart, 4000); // concurrentStart 总共花了 2 秒
+// 等到 setTimeout(concurrentStart, 4000) 完成
+setTimeout(stillSerial, 7000); // stillSerial 总共花了 2 秒
+// 等到 setTimeout(stillSerial, 7000) 完成
+setTimeout(parallel, 10000); // 真正的并行运行
+```
+
+上面代码是4中，不同处理promise并行方式。但核心是不管怎样 `await `执行都会有顺序，会等待执行。
+
+## 4. 并行——循环
+
+#### 1. for-of
+
+```javascript
+//不推荐，因为是串行解决
+function fetch(d){
+	return new Promise((resolve)=>{
+        	console.log('start:',d);
+			setTimeout(()=>{resolve(d)},Math.random()*1000);
+		})
+}
+var args = [1,2,3,4,5];
+async function test(args){
+	for(const arg of args){
+		const res = await fetch(arg);
+		console.log('end:',res);
+    }
+}
+test(args);
+/**
+   	start: 1
+    23:00:11.331 bundle.9303569f0937a02f1c80.js:4 end: 1
+    23:00:11.332 bundle.9303569f0937a02f1c80.js:4 start: 2
+    23:00:12.009 bundle.9303569f0937a02f1c80.js:4 end: 2
+    23:00:12.009 bundle.9303569f0937a02f1c80.js:4 start: 3
+    23:00:12.248 bundle.9303569f0937a02f1c80.js:4 end: 3
+    23:00:12.248 bundle.9303569f0937a02f1c80.js:4 start: 4
+    23:00:12.984 bundle.9303569f0937a02f1c80.js:4 end: 4
+    23:00:12.984 bundle.9303569f0937a02f1c80.js:4 start: 5
+    23:00:13.184 bundle.9303569f0937a02f1c80.js:4 end: 5	
+*/
+```
+
+#### 2. 使用map并行执行
+
+```javascript
+function fetch(d){
+	return new Promise((resolve)=>{
+			console.log('start:',d);
+			setTimeout(()=>{resolve(d)},Math.random()*1000);
+		})
+}
+var args = [1,2,3,4,5];
+async function test3(args){
+	const promises = args.map(async arg=>{//map 执行 可以并行执行
+		const re = await fetch(arg);
+		return re;
+	})
+	for(const p of promises){
+		p.then((d)=>{
+			console.log('end',d);
+		})
+	}
+}
+
+test3(args);
+/**
+    start: 1
+    22:56:44.421 VM6500:3 start: 2
+    22:56:44.421 VM6500:3 start: 3
+    22:56:44.422 VM6500:3 start: 4
+    22:56:44.422 VM6500:3 start: 5
+    22:56:44.436 Promise {<resolved>: undefined}
+    22:56:44.462 VM6500:15 end 2
+    22:56:44.552 VM6500:15 end 1
+    22:56:44.569 VM6500:15 end 5
+    22:56:44.974 VM6500:15 end 3
+    22:56:44.993 VM6500:15 end 4
+*/
+```
+
+`Array.prototype.map`  与`Array.prototype.forEach` 执行promise数组，是并行。
+
+但`for-in`  ` for-of `  `for`都是串行的
+
+
+
+## 5. 异常处理
+
+#### 0.异常分类
+
+参考：[Promise异常分类](https://github.com/youzaiyouzai666/blog/blob/master/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B7%B1%E5%85%A5/%E6%B7%B1%E5%85%A5%E2%80%94Promise.md#2-%E5%BC%82%E5%B8%B8%E4%B8%8D%E5%90%8C%E5%88%86%E7%B1%BB)
+
+异常简单分为分为 执行异常和异步异常（通过是否能try-catch捕获来区分）；
+
+
+
+
+
+## 6. 容易出错
+
+#### 1. await 不是在async function内
+
+```javas
+//await 与 async 中间隔了一个function
+async function dbFuc(db) {
+  let docs = [{}, {}, {}];
+
+  // 报错
+  docs.forEach(function (doc) { 
+  // 改成 docs.forEach( await function (doc) 就没毛病
+    await db.post(doc);
+  });
+}
+```
 

@@ -360,7 +360,7 @@ function Promise1(fn) {
 ```javascript
 //版本二
 Promise.prototype.finally = function (callback) {
-     return this.then(
+     return this.then(//这个 必须是this.then 而不是 Promise.prototype.then
        value  => Promise.resolve(callback()).then(() => value),
        reason => Promise.resolve(callback()).then(() => { throw reason })
      );
