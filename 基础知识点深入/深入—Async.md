@@ -1,5 +1,7 @@
 # 深入浅出——Async
 
+了解Async 这篇就够了
+
 > 导论：
 >
 > ​	首先，必须了解Promise
@@ -20,7 +22,7 @@
 
 #### 1. API
 
-核心 API  就async 与 await，具体 直接将MDN中解释拿来用
+核心 API  就async 与 await，具体 直接将[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function)中解释拿来用
 
  1. `async function` 声明将定义一个返回 [`AsyncFunction`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/AsyncFunction) 对象的异步函数。异步函数是指通过事件循环异步执行的函数，它会通过一个隐式的 [`Promise`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise) 返回其结果。但是如果你的代码使用了异步函数，它的语法和结构会更像是标准的同步函数。 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function#%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90)
 
@@ -399,11 +401,146 @@ test3(args);
 
 异常简单分为分为 执行异常和异步异常（通过是否能try-catch捕获来区分）；
 
+#### 1. 基本套路
+
+```javascript
+//套路1
+async function f() {
+  await new Promise(function (resolve, reject) {
+    throw new Error('出错了');
+  });
+  await Promise.resolve('1')
+}
+
+f()
+.then(v => console.log(v))
+.catch(e => console.log(e))
+
+```
+
+```javascript
+//套路2
+async function f() {
+  try {
+    await new Promise(function (resolve, reject) {
+      throw new Error('出错了');
+    });
+  } catch(e) {
+    console.log(e)
+  }
+}
+f()
+//为什么 Promise 无法使用try-catch捕获异常,但 async中，可以捕获？
+//猜测可能是，await返回是一个值，执行上下文应该是同一个
+```
 
 
 
+#### 2. 链式处理
 
-## 6. 容易出错
+```javas
+//在基本套路1 基础上处理 与promise 链式异常处理对比
+async function f() {
+  await new Promise(function (resolve, reject) {
+    console.log('1')
+    throw new Error('出错了');
+  });
+  await new Promise(function(resolve, reject){
+	console.log('2');//没有打印
+    resolve(2);
+  })
+}
+
+f()
+.then(v => console.log(v))
+.catch(e => console.log(e))
+/**
+    1
+    Error: 出错了
+        at <anonymous>:4:11
+        at new Promise (<anonymous>)
+        at f (<anonymous>:2:9)
+        at <anonymous>:12:1
+*/
+```
+
+**重点：** 第二个 await没有执行，（‘2’没有打印）；也就证明，`async`遇到异常 就会中断链，与[Promise链式异常](https://github.com/youzaiyouzai666/blog/blob/master/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B7%B1%E5%85%A5/%E6%B7%B1%E5%85%A5%E2%80%94Promise.md#3-%E5%BC%82%E5%B8%B8%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8)对比
+
+```javascript
+//在基本套路2 基础上处理 对比
+async function f() {
+  try {
+    await new Promise(function (resolve, reject) {
+          console.log('222');
+          throw new Error('出错了');
+    });
+    await new Promise(function (resolve, reject) {
+          console.log('222');//不会打印
+		 resolve(222);
+    })
+  } catch(e) {
+          console.log(e)
+  }
+}
+f()
+//与上例 是一样 不会执行第二个 await;
+```
+
+
+
+#### 3. 使用第三方模块bounce
+
+参见：[github](https://github.com/hapijs/bounce)
+
+
+
+## 6. 实现Async——todo
+
+async 函数的实现原理，就是将 Generator 函数和自动执行器，包装在一个函数里。 
+
+```javascript
+async function fn(args) {
+  // ...
+}
+
+// 等同于
+
+function fn(args) {
+  return spawn(function* () {
+    // ...
+  });
+}
+```
+
+```javascript
+//generator 没有搞明白，直接是copy代码
+function spawn(genF) {
+  return new Promise(function(resolve, reject) {
+    const gen = genF();
+    function step(nextF) {
+      let next;
+      try {
+        next = nextF();
+      } catch(e) {
+        return reject(e);
+      }
+      if(next.done) {
+        return resolve(next.value);
+      }
+      Promise.resolve(next.value).then(function(v) {
+        step(function() { return gen.next(v); });
+      }, function(e) {
+        step(function() { return gen.throw(e); });
+      });
+    }
+    step(function() { return gen.next(undefined); });
+  });
+}
+```
+
+
+
+## 7. 容易出错
 
 #### 1. await 不是在async function内
 
