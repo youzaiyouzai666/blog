@@ -4,6 +4,76 @@
 >
 > 为什么，已经有个这个文档，还要在这里写？因为 文档虽然比较全，但感觉有点乱。自己尝试在大神的基础上，再进行整理。（站在巨人肩膀上）
 
+## 0. Loader的基本知识
+
+#### 1. 作用
+
+1. Loader 本质上是对资源文件进行转换处理。
+2. 本身是一个node模块
+
+#### 2. 怎么用
+
+###### 简单配置
+
+```javascript
+//webpack 配置
+const webpackConfig = {
+    //这些选项决定了如何处理项目中的不同类型的模块。
+    module: {
+        rules: [{
+            test: /\.js$/,
+            use: [{
+                //这里写 loader 的路径
+                loader: path.resolve(__dirname, 'loaders/a-loader.js'), 
+                options: {/* ... */}
+            }]
+        }]
+    }
+}
+```
+
+
+
+###### 进阶使用
+
+#### 3. Loader解析规则
+
+###### 哪里解析规则？
+
+```javascript
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/, //这里解析规则
+        use: [
+         //...
+        ]
+      }
+    ]
+  }
+};
+```
+
+
+
+###### 具体解析规则
+
+> oader 遵循标准的[模块解析](https://webpack.docschina.org/concepts/module-resolution/)。多数情况下，loader 将从[模块路径](https://webpack.docschina.org/concepts/module-resolution/#module-paths)（通常将模块路径认为是 `npm install`, `node_modules`）解析。 
+
+1. 绝对路径
+
+2. 相对路径
+
+3. 模块路径
+
+   ```javascript
+   import 'module';
+   import 'module/lib/file';
+   ```
+
+   模块将在 [`resolve.modules`](https://webpack.docschina.org/configuration/resolve/#resolve-modules) 中指定的所有目录内搜索 
+
 ## 1. 本地开发方法
 
 ​	本地开发，主要是解决`Webpack` 能找到自定义的loader
