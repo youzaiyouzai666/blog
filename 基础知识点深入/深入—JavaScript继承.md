@@ -10,9 +10,7 @@
 
 ## 0. 继承不同方式
 
-
-
-#### 1.Mixin混合继承（浅拷贝）
+#### Mixin混合继承（浅拷贝）
 
 mixin 本质上是一个浅拷贝
 
@@ -33,7 +31,7 @@ mixin(MyMixin, MyClass.prototype);
 
 
 
-#### 2. 原型链继承
+#### 原型链继承
 
 首先了解原型链原理：
 
@@ -49,13 +47,7 @@ mixin(MyMixin, MyClass.prototype);
 
 主要以原型链继承为主。
 
-#### 0. 继承之前 原型链状态
-
-假设有两个对象 `Sub` 与 `Super`,具体原型链如下：
-
-![继承之前](./img/原型链0.png)
-
-#### 1. 继承基本步骤
+####  继承基本步骤
 
 1. 子类构造器中调用父类构造器—— Super.call(this)
 
@@ -80,9 +72,9 @@ mixin(MyMixin, MyClass.prototype);
 
 
 
-#### 2. 上面步骤优化
+#### 上面步骤优化
 
-##### 1. 优化1 
+#####  优化1 
 
 ```javascript
 //步骤2
@@ -110,7 +102,7 @@ Object.create = function(proto){
 
 
 
-##### 2. 优化2
+##### 优化2
 
 ```javascript
 //将 step2与step2 合在一起
@@ -132,7 +124,7 @@ Object.create第二个参数，使constructor不能枚举（enumberable:false）
 
 
 
-#### 3. 优化后最终版本
+#### 优化后最终版本
 
 ```javascript
 function Sub(value) {
@@ -150,11 +142,17 @@ Object.create(Super.prototype, {
 
 
 
-#### 4. 对于基本步骤的图解
+#### 对于基本步骤的图解
 
-继承之后原型链变成，具体参见下图：
+继承前原型链状态
+
+![继承之前](./img/原型链0.png)
+
+继承之后原型链变成，具体参见下图（对比）：
 
 ![继承后](./img/prototype1.png)
+
+(这张图，值得反复思考琢磨)
 
 图解释(手画丑，见谅)：
 
@@ -162,7 +160,38 @@ Object.create(Super.prototype, {
 2. 红线表示改变后的原型链
 3. 灰色表示被改变的原型链
 
-通过上图，可以明显的观察该种继承方式的不足。
+解释上面图：
+
+ 1. 需要明白 `new`过程（背景知识）
+
+    [参考—深入理解`new`过程](https://github.com/mqyqingfeng/Blog/issues/13)
+
+    ```javascript
+    /*
+    new  过程
+    1.新生成了一个对象
+    2.链接到原型
+    3.绑定 this
+    4.返回新对象*/
+    function create() {
+        // 创建一个空的对象
+        let obj = new Object()
+        // 获得构造函数
+        let Con = [].shift.call(arguments)
+        // 链接到原型
+        obj.__proto__ = Con.prototype
+        // 绑定 this，执行构造函数
+        let result = Con.apply(obj, arguments)
+        // 确保 new 出来的是个对象
+        return typeof result === 'object' ? result : obj
+    }
+    ```
+
+    **解释上图需要的知识，理解`new `过程，1.创建并返回一个空对象，2.并将新对象通过`__proto__`链接到`prototype`对象。**
+
+	2. 将`Sub`的`prototype`对象改变成`new Super()`,那么在`new Sub()`过程中，`__proto__`到`new Super()`
+
+	3. `Sub.prototype.constructor = Sub;// step3`,是在`new Super()`上加了新的`constructor`属性，并指向`Sub`
 
 
 
@@ -173,12 +202,9 @@ ES6 继承，是用`extends`关键字来实现。是在ES5原型链继承基础�
 核心是学习，
 
 1. 这就语法糖怎么用
-
 2. 语法糖中一些细节
 
-   
-
-#### 1. 基本
+####  基本
 
 ```javascript
 class ColorPoint extends Point {
@@ -201,7 +227,7 @@ class ColorPoint extends Point {
 
 
 
-#### 2. 静态方法继承
+####  静态方法继承
 
 ```javascript
 //extends 父类的静态方法，也会被子类继承
@@ -217,9 +243,9 @@ class B extends A {
 B.hello()  // hello world
 ```
 
-#### 3. 继承实现细节
+#### 继承实现细节
 
-##### 1. super关键字
+ super关键字
 
 ```javascript
 //伪代码
@@ -284,17 +310,117 @@ class B extends A {
 
  
 
-#### 4. ES6实现继承原理初探
+####  ES6实现继承原理初探
 
-类的 prototype 属性和__proto__属性
+##### 类的 prototype 属性和__proto__属性
+
+```javascript
+class A {
+}
+
+class B extends A {
+}
+
+B.__proto__ === A // true  核心目的是实现——静态方法继承
+B.prototype.__proto__ === A.prototype //true
+```
 
 
 
 ## 3. ES6继承及与ES5继承不同
 
-1. 主要是this对象创建顺序不同
+不同主要通过原生构造函数的继承来聊聊 [参考](http://es6.ruanyifeng.com/#docs/class-extends#%E5%8E%9F%E7%94%9F%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E7%BB%A7%E6%89%BF)
 
-   ES5 的继承，实质是先创造子类的实例对象`this`，然后再将父类的方法添加到`this`上面（`Parent.apply(this)`）。ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到`this`上面（所以必须先调用`super`方法），然后再用子类的构造函数修改`this`。 
+原生构造函数：
+
+- Boolean()
+- Number()
+- String()
+- Array()
+- Date()
+- Function()
+- RegExp()
+- Error()
+- Object()
+
+原来我们无法自定义一个`Array`的子类
+
+####ES5继承Array 
+
+```javascript
+function MyArray() {
+  Array.apply(this, arguments);//先有子类的this,然后在子类this基础上，调用父类constructor来处理this
+}
+
+MyArray.prototype = Object.create(Array.prototype, {
+  constructor: {
+    value: MyArray,
+    writable: true,
+    configurable: true,
+    enumerable: true
+  }
+});
+```
+
+但完全无法使用 Array对象的一些方法属性
+
+```javascript
+//test
+var colors = new MyArray();
+colors[0] = "red";
+colors.length  // 0
+
+colors.length = 0;
+colors[0]  // "red"
+```
+
+为什么呢？
+
+因为，` Array.apply(this, arguments);`是因为子类无法获得原生构造函数的内部属性，通过`Array.apply()`或者分配给原型对象都不行。原生构造函数会忽略`apply`方法传入的`this`，也就是说，原生构造函数的`this`无法绑定，导致拿不到内部属性 
+
+
+
+#### ES6继承Array
+
+```javascript
+class MyArray extends Array {
+  constructor(...args) {
+    super(...args);
+  }
+}
+
+var arr = new MyArray();
+```
+
+```javascript
+//test
+var colors = new MyArray();
+colors[0] = "red";
+colors.length  // 1
+
+colors.length = 0;
+colors[0]  // undefined
+```
+
+主要是this对象创建顺序不同
+
+ES5 的继承，实质是先创造子类的实例对象`this`，然后再将父类的方法添加到`this`上面（`Parent.apply(this)`）。ES6 的继承机制完全不同，实质是先将父类实例对象的属性和方法，加到`this`上面（所以必须先调用`super`方法），然后再用子类的构造函数修改`this`。 
+
+
+
+注意：
+
+```javascript
+class NewObj extends Object{
+  constructor(){
+    super(...arguments);
+  }
+}
+var o = new NewObj({attr: true});
+o.attr === true  // false
+```
+
+上面代码中，`NewObj`继承了`Object`，但是无法通过`super`方法向父类`Object`传参。这是因为 ES6 改变了`Object`构造函数的行为，一旦发现`Object`方法不是通过`new Object()`这种形式调用，ES6 规定`Object`构造函数会忽略参数。 
 
 
 
@@ -302,7 +428,7 @@ class B extends A {
 
 多重继承其实 也可以分为用浅拷贝和原型链式继承
 
-#### 1. mixin实现-简单
+####  mixin实现-简单
 
 ```javascript
 const a = {
@@ -364,7 +490,7 @@ MyClass.prototype.myMethod = function() {
      });
    ```
 
-#### 2.mixin实现-完善
+####  mixin实现-完善
 
 [参考—阮一峰](http://es6.ruanyifeng.com/#docs/class-extends#Mixin-%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9E%E7%8E%B0)
 
@@ -402,7 +528,7 @@ class DistributedEdit extends mix(Loggable, Serializable) {
 
 
 
-#### 3. 原型链实现
+####  原型链实现
 
 
 ```javascript
