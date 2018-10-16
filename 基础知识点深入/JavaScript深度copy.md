@@ -1,5 +1,15 @@
 # 深度copy
 
+> 深度copy需要解决难题:
+>
+>  	1. 不同数据类型（基本数据类型，function，reg，err，undefined等等）
+> 	2. copy过程第一步，可以看成一个树的遍历。那么就会遇到对广度及深度方面考量。
+> 	3. 循环引用问题，可能会导致，死循环。
+
+## 深度copy与浅copy
+
+
+
 ## 测试用例创建
 
 #### 1. 各种数据类型
@@ -60,8 +70,6 @@ createData(3, 0); // 3层深度，每层有0个数据 {data: {data: {data: {}}}}
 来源：掘金
 */
 ```
-
-
 
 
 
@@ -154,7 +162,7 @@ JSON.parse(JSON.stringify(obj));
 
 ## 方案二—MessageChannel
 
-##### [MessageChannel](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel)
+##### [MessageChannel](https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel)——本质是内部使用了Structured Clone（结构化克隆算法）的一种实现
 
 能解决 `undefined`, 循环嵌套，但不能解决`function `
 
@@ -282,9 +290,126 @@ function cloneLoop(x) {
 */
 ```
 
+上面代码，并不能解决循环引用问题
+
+```javascript
+// 保持引用关系
+function cloneForce(x) {
+    // =============
+    const uniqueList = []; // 用来去重
+    // =============
+
+    let root = {};
+
+    // 循环数组
+    const loopList = [
+        {
+            parent: root,
+            key: undefined,
+            data: x,
+        }
+    ];
+
+    while(loopList.length) {
+        // 深度优先
+        const node = loopList.pop();
+        const parent = node.parent;
+        const key = node.key;
+        const data = node.data;
+
+        // 初始化赋值目标，key为undefined则拷贝到父元素，否则拷贝到子元素
+        let res = parent;
+        if (typeof key !== 'undefined') {
+            res = parent[key] = {};
+        }
+        
+        // =============
+        // 数据已经存在
+        let uniqueData = find(uniqueList, data);
+        if (uniqueData) {
+            parent[key] = uniqueData.target;
+            break; // 中断本次循环
+        }
+
+        // 数据不存在
+        // 保存源数据，在拷贝数据中对应的引用
+        uniqueList.push({
+            source: data,
+            target: res,
+        });
+        // =============
+    
+        for(let k in data) {
+            if (data.hasOwnProperty(k)) {
+                if (typeof data[k] === 'object') {
+                    // 下一次循环
+                    loopList.push({
+                        parent: res,
+                        key: k,
+                        data: data[k],
+                    });
+                } else {
+                    res[k] = data[k];
+                }
+            }
+        }
+    }
+
+    return root;
+}
+
+function find(arr, item) {
+    for(let i = 0; i < arr.length; i++) {
+        if (arr[i].source === item) {
+            return arr[i];
+        }
+    }
+
+    return null;
+}
+
+/*作者：颜海镜
+链接：https://juejin.im/post/5bc1ae9be51d450e8b140b0c
+来源：掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。*/
+```
+
 
 
 ## 方案四—Immutable
 
 [参考](https://juejin.im/post/5bbad07ce51d450e894e4228?utm_source=gold_browser_extension)  [Immutable.js了解一下？](https://juejin.im/post/5ac437436fb9a028c97a437c)
+
+
+
+
+
+## 方案五—Vue中对数据处理
+
+
+
+
+
+## 结构化克隆算法
+
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/Guide/API/DOM/The_structured_clone_algorithm)
+
+结构化克隆算法是[由HTML5规范定义](http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#safe-passing-of-structured-data)的用于复制复杂JavaScript对象的算法。通过来自 [Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)的 `postMessage() `或使用 [IndexedDB](https://developer.mozilla.org/en-US/docs/Glossary/IndexedDB) 存储对象时在内部使用。它通过递归输入对象来构建克隆，同时保持先前访问过的引用的映射，以避免无限遍历循环。 
+
+目前支持的类型有：
+
+- 对象类型
+
+不支持：
+
+- 原型链
+- Error 对象  导致抛出 `DATA_CLONE_ERR` 的异常。 
+- Function   抛出 `DATA_CLONE_ERROR` 异常 
+- DOM    抛出 `DATA_CLONE_ERROR` 异常 
+
+
+
+
+
+## 性能
 
