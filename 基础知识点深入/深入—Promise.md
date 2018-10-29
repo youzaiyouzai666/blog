@@ -18,7 +18,7 @@
 >
 > ​	[JavaScript Promise：简介](https://developers.google.com/web/fundamentals/primers/promises?hl=zh-cn#_4)
 
-## 0. 基本用法
+## 基本用法
 
 基本的promise使用，读本文需要了解基本的`Promise`使用。
 
@@ -70,7 +70,7 @@ function get(url) {
 
 
 
-## 1. Promse API
+## Promse API
 
    Promise API 分为 :[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then#%E8%BF%94%E5%9B%9E%E5%80%BC)
 
@@ -88,17 +88,19 @@ function get(url) {
 
   *具体规则如下：*
 
-    - *如果then中的回调函数返回一个值，那么then返回的Promise将会成为接受状态，并且将返回的值作为接受状态的回调函数的参数值。*
-    - *如果then中的回调函数抛出一个错误，那么then返回的Promise将会成为拒绝状态，并且将抛出的错误作为拒绝状态的回调函数的参数值。*
-    - *如果then中的回调函数返回一个已经是接受状态的Promise，那么then返回的Promise也会成为接受状态，并且将那个Promise的接受状态的回调函数的参数值作为该被返回的Promise的接受状态回调函数的参数值。*
-    - *如果then中的回调函数返回一个已经是拒绝状态的Promise，那么then返回的Promise也会成为拒绝状态，并且将那个Promise的拒绝状态的回调函数的参数值作为该被返回的Promise的拒绝状态回调函数的参数值。*
-    - *如果then中的回调函数返回一个未定状态（pending）的Promise，那么then返回Promise的状态也是未定的，并且它的终态与那个Promise的终态相同；同时，它变为终态时调用的回调函数参数与那个Promise变为终态时的回调函数的参数是相同的。*
-    
-    **上面是官方规则，神马，具体白话就是 核心是 返回参数及返回promise的状态**
-    
-    参考：[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then#%E8%BF%94%E5%9B%9E%E5%80%BC)
-    
-    是不是 觉得很晕，没关系，可以先看 下一节，看完后，再回过来看具体的说明
+```JavaScript
+- *如果then中的回调函数返回一个值，那么then返回的Promise将会成为接受状态，并且将返回的值作为接受状态的回调函数的参数值。*
+- *如果then中的回调函数抛出一个错误，那么then返回的Promise将会成为拒绝状态，并且将抛出的错误作为拒绝状态的回调函数的参数值。*
+- *如果then中的回调函数返回一个已经是接受状态的Promise，那么then返回的Promise也会成为接受状态，并且将那个Promise的接受状态的回调函数的参数值作为该被返回的Promise的接受状态回调函数的参数值。*
+- *如果then中的回调函数返回一个已经是拒绝状态的Promise，那么then返回的Promise也会成为拒绝状态，并且将那个Promise的拒绝状态的回调函数的参数值作为该被返回的Promise的拒绝状态回调函数的参数值。*
+- *如果then中的回调函数返回一个未定状态（pending）的Promise，那么then返回Promise的状态也是未定的，并且它的终态与那个Promise的终态相同；同时，它变为终态时调用的回调函数参数与那个Promise变为终态时的回调函数的参数是相同的。*
+
+**上面是官方规则，神马，具体白话就是 核心是 返回参数及返回promise的状态**
+
+参考：[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then#%E8%BF%94%E5%9B%9E%E5%80%BC)
+
+是不是 觉得很晕，没关系，可以先看 下一节，看完后，再回过来看具体的说明
+```
 
 ```javascript
 /*then 回调中，
@@ -108,11 +110,16 @@ function get(url) {
   */
 //对比1 穿透问题  返回是'foo' 而不是 'bar'
 Promise.resolve('foo')
-    .then(Promise.resolve('bar'))
+    .then(Promise.resolve('bar'))//上面规则3
     .then(function(result){
     	console.log(result)
 	})
-
+//穿透等价于
+Promise.resolve('foo')
+    .then(null)
+    .then((e)=>{
+     	console.log(e)
+    })
 
 //对比2  打印undefined
 Promise.resolve('foo')
@@ -133,7 +140,7 @@ Promise.resolve('foo')
 
 
 
-## 2. Prmise 链式调用——重点（难点）
+## Prmise 链式调用——重点（难点）
 
 > 链式调用
 >
@@ -214,7 +221,7 @@ Promise.resolve(111).then(function(d){
 
 
 
-## 3. 并行问题forEach处理
+## 并行问题forEach处理
 
 上面是多个链式调用，下面聊聊 并行处理
 
@@ -260,7 +267,7 @@ Promise.all(ps).then(values=>{
 
 
 
-## 4. 基本实现原理—实现一个简单Promise
+## 基本实现原理—实现一个简单Promise
 
 自己手撸一个简单的`Promise`
 
@@ -344,7 +351,7 @@ function Promise1(fn) {
 
 
 
-## 5. finnaly 实现
+## finnaly 实现
 
    ```javascript
 //版本一 finnaly 表示，不管resolve,reject 都执行   
@@ -377,7 +384,7 @@ Promise.reject(1).finally((d)=>{console.log(d)})
 
 
 
-## 6. 异常处理
+## 异常处理
 
 >   异常分类：
 >
@@ -650,7 +657,40 @@ fetch().then((resolve, reject) => {
        console.log('err2',error) // 也无法捕获异常
    })
 ```
-## 7.async
+## 顺序问题
+
+[参考以前的文章](https://github.com/youzaiyouzai666/blog/blob/master/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E6%A2%B3%E7%90%86/vue%E6%BA%90%E7%A0%81-nextTick.md#2-event-loop)
+
+
+
+## 性能
+
+#### 1. 潜在内存泄漏问题
+
+一个 `Promise`有以下几种状态:
+
+- *pending*: 初始状态，既不是成功，也不是失败状态。
+
+- *fulfilled*: 意味着操作成功完成。
+
+- *rejected*: 意味着操作失败。
+
+  当从pending状态，不进行状态改变，则一直存在于内存中，所以，需要停止promise状态
+
+  ```javascript
+  Promise.resolve(1)
+  	.then(()=>{})
+      .done()//需要done，每个promise都应该释放了
+  ```
+
+
+#### 2. 停止promise
+
+当前ES6 没有规定`done`实现
+
+[从如何停掉 Promise 链说起](https://github.com/xieranmaya/blog/issues/5)
+
+## async
 
 async是 Promise 更高一层的封装，具体参见[深入浅出Async](https://github.com/youzaiyouzai666/blog/blob/master/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B7%B1%E5%85%A5/%E6%B7%B1%E5%85%A5%E2%80%94Async.md)
 
