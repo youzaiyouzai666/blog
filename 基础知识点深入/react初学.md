@@ -355,6 +355,8 @@ function onClick(event) {
 
 ### Router
 
+
+
 #### 1. 基本使用
 
 1. 根节点
@@ -384,6 +386,13 @@ function onClick(event) {
    </Switch>
    ```
 
+#### 2. 异步加载（动态加载）
+
+[【翻译】基于 Create React App路由4.0的异步组件加载](https://segmentfault.com/a/1190000010067597)
+
+[React-Router动态路由设计最佳实践](https://segmentfault.com/a/1190000011765141)
+
+[React中的async/await生命周期函数](https://zhuanlan.zhihu.com/p/30401565)
 
 ### MobX 
 
@@ -473,9 +482,13 @@ s.changeA();
 #### 3. 一些难点
 
 1. 无法监听`Object`新增属性，但可以通过`extendObservable(target, props)`来实现
-
 2. 作用域的问题
 
+
+
+#### 4. mobx-react
+
+[MobX：MobX 和 React 十分钟快速入门](https://www.zcfy.cc/article/mobx-ten-minute-introduction-to-mobx-and-react-4306.html?t=new)
 
 ### API 梳理
 
