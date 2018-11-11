@@ -24,3 +24,10 @@
 
 [官方-组合优与继承](https://react.docschina.org/docs/composition-vs-inheritance.html)
 
+
+
+
+
+## 高阶组件
+
+[官网-高阶组件](https://react.docschina.org/docs/higher-order-components.html)
