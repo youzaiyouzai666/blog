@@ -31,3 +31,36 @@
 ## 高阶组件
 
 [官网-高阶组件](https://react.docschina.org/docs/higher-order-components.html)
+
+[React 高阶组件(HOC)入门指南](https://juejin.im/post/5914fb4a0ce4630069d1f3f6)
+
+[深入理解 React 高阶组件](https://zhuanlan.zhihu.com/p/24776678)
+
+### 1. 高阶组件作用
+
+与mixin进行对比
+
+
+
+### 2. 实现高阶组件方式
+
+#### 属性代理
+
+ 	1. 操作props
+ 	2. 
+
+#### 反向继承
+
+
+
+## Refs & DOM
+
+参考：[官方-Refs & DOM](https://react.docschina.org/docs/refs-and-the-dom.html)
+
+
+
+
+
+## React Hooks
+
+[30分钟精通React今年最劲爆的新特性——React Hooks](https://juejin.im/post/5be3ea136fb9a049f9121014)

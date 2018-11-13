@@ -6,6 +6,28 @@
 
 主要讲[Ant Design Form](https://ant.design/components/form-cn/)组件使用中碰到的问题（onChange）
 
+1. 是一个Form高阶组件，[HOC](https://reactjs.org/docs/higher-order-components.html)官方文档已经说了很详细了，简单说下，`HOC`是设计模式中`装饰模式`的一个实践，在不改变原有的用途上进行组件增强。
+
+2. 让被包装的组件具备表单功能，其中的表单组件具备数据双向绑定，以及一些校验等一系列功能。
+
+
+
+####  表单双向绑定
+
+通过 “value” 属性实现 Model => View 的数据流，通过绑定 “ onChange” Handler 实现 View => Model 的数据流
+
+[手把手教你为 React 添加双向数据绑定（一）](https://juejin.im/post/59f2e9b16fb9a04529360146)
+
+
+
+#### 表单校验
+
+[demo](http://09x.ant.design/components/validation/) 对于 onBlur与onChange 结合做法
+
+
+
+
+
 
 
 ## 遇到bug
