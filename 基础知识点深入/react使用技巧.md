@@ -15,8 +15,24 @@
    自底向上|| 自顶而下
 
 4. 设置state（最小原则）
+
 5. 确定State位于哪个组件
+
 6. 添加子向父的数据流
+
+
+
+## 状态管理
+
+[对 React 状态管理的理解及方案对比](https://github.com/sunyongjian/blog/issues/36)
+
+state 自上而下流向、Props 只读
+
+
+
+react组件通信
+
+
 
 
 
@@ -36,13 +52,68 @@
 
 [深入理解 React 高阶组件](https://zhuanlan.zhihu.com/p/24776678)
 
+[eact进阶之高阶组件](https://github.com/sunyongjian/blog/issues/25)
+
+
+
+### 0.使用方式
+
+#### 基本引用
+
+```react
+import React, { Component } from 'react';
+import simpleHoc from './simple-hoc';
+
+class Usual extends Component {
+  render() {
+    console.log(this.props, 'props');
+    return (
+      <div>
+        Usual
+      </div>
+    )
+  }
+}
+export default simpleHoc(Usual);
+```
+
+```react
+import React, { Component } from 'react';
+
+const simpleHoc = WrappedComponent => {
+  console.log('simpleHoc');
+  return class extends Component {
+    render() {
+      return <WrappedComponent {...this.props}/>
+    }
+  }
+}
+export default simpleHoc;
+```
+
+
+
+#### 装饰器模式引用
+
+```react
+import React, { Component } from 'react';
+import simpleHoc from './simple-hoc';
+
+@simpleHoc
+export default class Usual extends Component {
+  render() {
+    return (
+      <div>
+        Usual
+      </div>
+    )
+  }
+}
+```
+
+
+
 ### 1. 高阶组件作用
-
-与mixin进行对比
-
-
-
-### 2. 实现高阶组件方式
 
 #### 属性代理
 
@@ -53,13 +124,23 @@
 
 
 
+### 2. 对比
+
+####与mixin进行对比
+
+![img](/Users/didi/git/blog/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B7%B1%E5%85%A5/assets/f0f5b214d08abc1a1ac88dd0e006b611.png)
+
+
+
+#### container对比
+
+
+
 ## Refs & DOM
 
 参考：[官方-Refs & DOM](https://react.docschina.org/docs/refs-and-the-dom.html)
 
-
-
-
+[从React官方文档看 refs 的使用和未来](https://juejin.im/post/5927f51244d904006414925a)
 
 ## React Hooks
 

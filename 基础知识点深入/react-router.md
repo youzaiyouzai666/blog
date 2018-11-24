@@ -4,7 +4,7 @@
 
 最好的文档是 [官方文档](https://reacttraining.com/react-router),虽然看不懂，但连蒙带猜，还是能看懂一点的
 
-
+[心中无路由，处处皆自由/react-router v4 动态路由](https://github.com/wayou/wayou.github.io/issues/16)
 
 ##基本使用[Basic Components](https://reacttraining.com/web/guides/basic-components)
 
@@ -38,6 +38,14 @@
      <Route component={NoMatch}/>
    </Switch>
    ```
+
+3. js  跳转
+
+   [react-router v4 使用 history 控制路由跳转](https://github.com/brickspert/blog/issues/3)
+
+
+
+
 
 ### 1.Matching
 
@@ -124,18 +132,15 @@ export default App;
 
 
 
-
-
-
-
-
-
-
-
-#### 2. 异步加载（动态加载）
+## 异步加载（动态加载）
 
 [【翻译】基于 Create React App路由4.0的异步组件加载](https://segmentfault.com/a/1190000010067597)
 
 [React-Router动态路由设计最佳实践](https://segmentfault.com/a/1190000011765141)
 
 [React中的async/await生命周期函数](
+
+
+
+
+
