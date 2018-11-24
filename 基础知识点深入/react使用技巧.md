@@ -34,6 +34,28 @@ react组件通信
 
 
 
+## 共享代码
+
+> 下面几种方法并不是孤立的
+
+### 1. mixin
+
+
+
+### 2. Render Props
+
+[官方文档](https://react.docschina.org/docs/render-props.html)
+
+[demo](https://codepen.io/youzaiyouzai666/pen/EOLReX?editors=0010)
+
+
+
+
+
+### 3. 高阶组件
+
+
+
 
 
 ## 组件拆分原则
