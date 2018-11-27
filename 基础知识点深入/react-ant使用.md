@@ -26,6 +26,57 @@
 
 
 
+## Upload 
+
+```react
+ <Upload
+          action={config.UPLOAD}
+          listType="picture-card"
+          fileList={fileList}
+          onPreview={this.handlePreview}
+          onChange={this.handleChange}
+          beforeUpload={beforeUpload}
+          name="filecontent" //后端上传是参数名
+          data={data} 
+          withCredentials={true}
+          headers={{
+            "X-Requested-With": null
+          }}
+        >
+          {fileList.length >= 5 ? null : uploadButton}
+        </Upload>
+```
+
+
+
+```react
+/**
+   * 这里有点坑，注意Upload 中的onChange方法会被调用多次
+   * 并且file有多个状态，'uploading''done''error'
+   * 上传只有当'done'状态才有response，为后端返回数据接口
+   */
+  handleChange = ({file, fileList}) => {
+    if(file.status ==='uploading'){
+      // this.setState({ fileList });
+    }
+    if(file.status ==='done'){
+      if(file.response.ErrNo != 0){
+        fileList.pop()
+        this.setState({fileList});
+        message.error("上传失败");
+      }
+    }
+    if(file.status ==='error'){
+      fileList.pop()
+      this.setState({fileList});
+      message.error("上传失败");
+    }
+    this.setState({ fileList });
+  };
+```
+
+
+
 
 
 

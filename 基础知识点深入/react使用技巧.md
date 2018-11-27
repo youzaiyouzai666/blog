@@ -22,6 +22,16 @@
 
 
 
+### JSX
+
+```jsx
+style={{'word-break':'break-all'}} //外面层{}表示 js，里面{}表示是一个Object
+```
+
+
+
+
+
 ## 状态管理
 
 [对 React 状态管理的理解及方案对比](https://github.com/sunyongjian/blog/issues/36)
