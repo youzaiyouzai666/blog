@@ -16,6 +16,16 @@ npx babel script.js --out-file script-compiled.js --presets=es2015,react
 
 
 
+
+
+
+
+
+
+
+
+
+
 ## 历史问题
 
 ### 1.babel5 
@@ -51,11 +61,127 @@ npm install --save-dev @babel/core @babel/cli
 
 ### 3. 具体使用
 
-一般 学习研究babel编译后的代码使用babel5。具体项目中使用babel6
+一般 学习研究babel编译后的代码使用babel5。具体项目中使用babel7
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## babel具体使用（语法层面）
+
+### 0. 执行顺序
+
+很简单的几条原则：
+
+- Plugin 会运行在 Preset 之前。
+- Plugin 会从前到后顺序执行。
+- Preset 的顺序则 刚好相反(从后向前)。
+
+### 1. plugin
+
+es6+ 编译要加入好多 plugins
+
+### 2. presets
+
+presets 就是 plugins 的组合，你也可以理解为是套餐... 主要有
+
+- [env](https://babeljs.io/docs/plugins/preset-env/)
+- [es2015](https://babeljs.io/docs/plugins/preset-es2015/)
+- [react](https://babeljs.io/docs/plugins/preset-react/)
+- [lastet](https://babeljs.io/docs/plugins/preset-latest/)
+- [stage-x](https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-) 具体的语法属于哪个 stage 可参照[tc39](https://github.com/tc39/proposals)
+
+配置模板
+
+```
+"presets": [
+    // 带了配置项，自己变成数组
+    [
+        // 第一个元素依然是名字
+        "env",
+        // 第二个元素是对象，列出配置项
+        {
+          "module": false
+        }
+    ],
+
+    // 不带配置项，直接列出名字
+    "stage-2"
+]
+```
+
+### 3. Presets-env 配置
+
+#### 配置详情
+
+```json
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": { // 配支持的环境
+          "browsers": [ // 浏览器
+            "last 2 versions",
+            "safari >= 7"
+          ],
+          "node": "current"
+        },
+        "modules": true,  //设置ES6 模块转译的模块格式 默认是 commonjs
+        "debug": true, // debug，编译的时候 console
+        "useBuiltIns": false, // 是否开启自动支持 polyfill
+        "include": [], // 总是启用哪些 plugins
+        "exclude": []  // 强制不启用哪些 plugins，用来防止某些插件被启用
+      }
+    ]
+  ],
+  plugins: [
+    "transform-react-jsx" //如果是需要支持 jsx 这个东西要单独装一下。
+  ]
+}
+```
+
+#### 配置debug详解
+
+
+
+#### 配置useBuiltIns 详解
+
+[实验](https://github.com/sunyongjian/babel-usage/tree/master/env)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 ## babel 具体使用（包维度）
+
+![img](/Users/didi/git/blog/基础知识点深入/assets/640.jpeg)
 
 ### 1. babel-core
 
@@ -105,11 +231,45 @@ npm install --save-dev babel-plugin-transform-runtime
 npm install --save babel-runtime
 ```
 
+包含：
 
+core-js 和 regenerator
 
 ### 6. core-js
 
 正在的核心编译代码包
+
+core-js 是用于 JavaScript 的组合式标准化库，它包含 es5 （e.g: object.freeze）, es6的 promise，symbols, collections, iterators, typed arrays， es7+提案等等的 polyfills 实现。也就是说，它几乎包含了所有 JavaScript 最新标准的垫片。
+
+**不过为什么它不把 generator 也实现了... **
+
+#### regenerator
+
+它是来自于 facebook 的一个库，[链接](https://github.com/facebook/regenerator)。主要就是实现了 generator/yeild， async/await。
+
+所以 babel-runtime 是单纯的实现了 core-js 和 regenerator 引入和导出，比如这里是 filter 函数的定义，做了一个中转并处理了 esModule 的兼容。
+
+```
+module.exports = { "default": require("core-js/library/fn/array/filter"), __esModule: true };
+```
+
+### 7. babel-register
+
+经过 babel 的编译后，我们的源代码与运行在生产下的代码是不一样的。
+
+[babel-register](https://babeljs.io/docs/en/babel-register/) 则提供了动态编译。换句话说，我们的源代码能够真正运行在生产环境下，不需要 babel 编译这一环节。
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
