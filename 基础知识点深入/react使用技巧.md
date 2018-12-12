@@ -1,3 +1,5 @@
+
+
 # react技巧
 
 [官网—React 理念](https://react.docschina.org/docs/thinking-in-react.html)
@@ -71,6 +73,14 @@ react组件通信
 ## 组件拆分原则
 
 [官方-组合优与继承](https://react.docschina.org/docs/composition-vs-inheritance.html)
+
+
+
+## Render Props
+
+[官方](https://react.docschina.org/docs/render-props.html)
+
+有点类似 `vue`的[`slot`插槽](https://cn.vuejs.org/v2/guide/components-slots.html)
 
 
 
@@ -165,6 +175,8 @@ export default class Usual extends Component {
 
 
 #### container对比
+
+
 
 
 
