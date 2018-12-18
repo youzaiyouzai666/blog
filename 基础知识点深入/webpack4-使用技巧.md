@@ -84,7 +84,9 @@ chunk id 的不稳定性
 
 [官方](https://webpack.docschina.org/guides/code-splitting/)
 
-### webpack4 默认方案
+[摸手，带你用合理的姿势使用webpack4（下）](https://segmentfault.com/a/1190000015919928)
+
+### webpack4 默认方案（`optimization.splitChunks`）
 
 [SplitChunksPlugin](https://webpack.docschina.org/plugins/split-chunks-plugin/)
 
@@ -95,7 +97,116 @@ webpack will automatically split chunks based on these conditions:
 - Maximum number of parallel requests when loading chunks on demand would be lower or equal to 5
 - Maximum number of parallel requests at initial page load would be lower or equal to 3
 
+```JavaScript
+//默认 不用在webpack配置文件中写，就可以开箱即用
+module.exports = {
+  //...
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+      minSize: 30000,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  }
+};
 
+```
+
+### 方案
+
+[use-long-term-caching](https://developers.google.com/web/fundamentals/performance/webpack/use-long-term-caching)
+
+#### 1. Extract dependencies and runtime into a separate file
+
+```javascript
+// webpack.config.js (for webpack 4)
+module.exports = {
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    }
+  },
+};
+```
+
+
+
+```javascript
+// webpack.config.js (for webpack 3)
+module.exports = {
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      // A name of the chunk that will include the dependencies.
+      // This name is substituted in place of [name] from step 1
+      name: 'vendor',
+
+      // A function that determines which modules to include into this chunk
+      minChunks: module => module.context &&
+        module.context.includes('node_modules'),
+    }),
+  ],
+};
+```
+
+#### 2. Webpack runtime code
+
+> runtime 就是因为 webpack中引入新chunck 或者更新 chunk，引起其中代码的**映射关系改变**，到这代码改变。所以讲**映射关系抽取出来**
+>
+> 更进一步优化 `runtime`，可以将runtime代码直接打到html中。因为 runtime 代码体积小，且改动频率很高，所以没有必要抽成独立文件，进行缓存。
+
+
+
+[引用:](https://webpack.docschina.org/concepts/manifest/)如上所述，我们这里只简略地介绍一下。runtime，以及伴随的 manifest 数据，主要是指：在浏览器运行时，webpack 用来连接模块化的应用程序的所有代码。runtime 包含：在模块交互时，连接模块所需的加载和解析逻辑。包括浏览器中的已加载模块的连接，以及懒加载模块的执行逻辑。
+
+```javascript
+// webpack.config.js (for webpack 4)
+module.exports = {
+  optimization: {
+    runtimeChunk: true,
+  },
+};
+```
+
+
+
+```javascript
+// webpack.config.js (for webpack 3)
+module.exports = {
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+
+      minChunks: module => module.context &&
+        module.context.includes('node_modules'),
+    }),
+
+    // This plugin must come after the vendor one (because webpack
+    // includes runtime into the last chunk)
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'runtime',
+
+      // minChunks: Infinity means that no app modules
+      // will be included into this chunk
+      minChunks: Infinity,
+    }),
+  ],
+};
+```
 
 
 
