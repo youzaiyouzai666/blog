@@ -36,3 +36,9 @@ git checkout .
    ```
 
 
+
+
+
+## iTerm2使用
+
+[mac下oh-my-zsh的配置](https://zhuanlan.zhihu.com/p/26373052)
