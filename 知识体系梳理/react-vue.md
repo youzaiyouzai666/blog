@@ -8,3 +8,109 @@ vue slot 是以html为出发点
 
 
 
+
+
+
+
+
+
+
+
+## 2. React 为什么没有Vue 中的组件注册
+
+https://github.com/youngwind/blog/issues/92
+
+https://github.com/youngwind/blog/issues/104
+
+问题描述：
+
+```vue
+<div id="app">
+    <my-component message="hello liangshaofeng!"></my-component>
+    <my-component message="hello Vue!"></my-component>
+</div>
+import Vue from 'Vue';
+
+var MyComponent = Vue.extend({
+    template: '<p>{{message}}</p>'
+});
+
+Vue.component('my-component', MyComponent);//多的一步
+
+const app = new Vue({
+    el: '#app'
+});
+```
+
+
+
+```react
+var HelloMessage = React.createClass({
+  render: function() {
+    return <div>Hello {this.props.name}</div>;
+  }
+});
+// 你看，React不需要将HellMessage注册成<hello-message>
+ReactDOM.render(<HelloMessage name="John" />, mountNode);
+```
+
+### 不管是`Vue`还是`React`都是把`tpl`处理，然后转换为`DOM`，需要处理点
+
+#### 1. react 解决方案
+
+```react
+import {render} from 'preact';
+
+render((
+    <div id="foo">
+        <span>Hello, world!</span>
+        <button>按钮</button>
+    </div>
+), document.body);
+```
+
+被babel编译解析：
+
+![jsx](/Users/didi/git/blog/知识体系梳理/assets/60cc7362-4132-11e7-8279-edc3f52fe814.png)
+
+其中babel会注入一个h函数，h函数完全可以实现把`tpl`处理，然后转换为`DOM`
+
+
+
+#### 2. vue方案
+
+Vue注册组件，核心工作是：组件与标签名的映射
+
+```vue
+<div id="app">
+    <my-component message="hello liangshaofeng!"></my-component>
+    <my-component message="hello Vue!"></my-component>
+</div>
+Vue.component('my-component', { template: '<p>{{message}}</p>'});//Vue 中`import `仅仅是个引入文件，并没有做特殊处理
+
+const app = new Vue({
+    el: '#app'
+});
+```
+
+Vue 中`import `仅仅是个引入文件，并没有做特殊处理，所以需要`Vue.component`进行显示的注册组件
+
+有人会说[vue Loader](https://vue-loader.vuejs.org/zh/)来处理，但实际功能并没有注册组件
+
+
+
+vue Loader 功能：
+
+- 允许为 Vue 组件的每个部分使用其它的 webpack loader，例如在 `<style>` 的部分使用 Sass 和在 `<template>` 的部分使用 Pug；
+- 允许在一个 `.vue` 文件中使用自定义块，并对其运用自定义的 loader 链；
+- 使用 webpack loader 将 `<style>` 和 `<template>` 中引用的资源当作模块依赖来处理；
+- 为每个组件模拟出 scoped CSS；
+- 在开发过程中使用热重载来保持状态。
+
+简而言之，webpack 和 Vue Loader 的结合为你提供了一个现代、灵活且极其强大的前端工作流，来帮助撰写 Vue.js 应用。
+
+为什么不在`vue Loader `中实现自动注册组件
+
+1. 可能是设计理念，
+2. Vue需要直接应用在普通的DOM结构上，然而，在这些普通的DOM结构当中，可能之前就已经存在[自定义标签](http://www.cnblogs.com/rubylouvre/p/3307413.html)了，Vue提供的注册功能正好可以解决这个命名冲突的问题。
+   也就是说，假如没有注册功能，直接把组件MyComponent对应成标签，要是万一之前的DOM结构里面已经有这样一个自定义的标签，也叫mycomponent，这不就懵逼了吗？

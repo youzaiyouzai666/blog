@@ -34,6 +34,12 @@
 
 
 
+# 默认配置
+
+
+
+
+
 # 难点-容易出错
 
 ## 1. 路径问题
@@ -64,12 +70,18 @@
    静态资源最终访问路径 = output.publicPath + 资源loader或插件等配置路径
    ```
 
-
 ## 2. 持久化方案
 
+前端持久化：
+
+- 针对 html 文件：不开启缓存，把 html 放到自己的服务器上，关闭服务器的缓存
+
+- 针对静态的 js，css，图片等文件：开启 cdn 和缓存，将静态资源上传到 cdn 服务商，我们可以对资源开启长期缓存，因为每个资源的路径都是独一无二的，所以不会导致资源被覆盖，保证线上用户访问的稳定性。
+
+- 每次发布更新的时候，先将静态资源(js, css, img) 传到 cdn 服务上，然后再上传 html 文件，这样既保证了老用户能否正常访问，又能让新用户看到新的页面。
+
+
 [基于 webpack 的持久化缓存方案](https://github.com/pigcan/blog/issues/9)
-
-
 
 hash
 chunkhash
@@ -78,6 +90,12 @@ chunk id 的不稳定性
 
 
 
+持久化缓存实践：
+
+- 使用 `runtimeChunk` 提取 `manifest`，使用 `script-ext-html-webpack-plugin`等插件内联到`index.html`减少请求
+- 使用 `HashedModuleIdsPlugin` 固定 `moduleId`
+- 使用 `NamedChunkPlugin`结合自定义 nameResolver 来固定 `chunkId`
+
 
 
 ## 3. 代码分割
@@ -85,6 +103,8 @@ chunk id 的不稳定性
 [官方](https://webpack.docschina.org/guides/code-splitting/)
 
 [摸手，带你用合理的姿势使用webpack4（下）](https://segmentfault.com/a/1190000015919928)
+
+> 代码分拆会影响持久化方案，因为 webpack将代码分拆自动化了。
 
 ### webpack4 默认方案（`optimization.splitChunks`）
 
