@@ -4,21 +4,23 @@
 
 [官方文档-中文](https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5)
 
+[一个很好用的git学习工具](https://learngitbranching.js.org/?demo)
+
 ## 原理
 
 ### 1. 基本演变（原理）
 
 最简单
 
-![å¾ç](/Users/didi/git/blog/基础知识点深入/assets/47074771-c5ac-414f-a237-ea1e791991bd.png)
+![å¾ç](./assets/47074771-c5ac-414f-a237-ea1e791991bd.png)
 
 但是作为一个目标明确的分布式版本控制系统，首先要做的就是添加一个本地仓库。
 
-![å¾ç](/Users/didi/git/blog/基础知识点深入/assets/3734cb87-6507-40ce-a8ac-428b48d95d04.png)
+![å¾ç](./assets/3734cb87-6507-40ce-a8ac-428b48d95d04.png)
 
 接着我们选择在工作目录与远程仓库中间加一个缓冲区域，叫做暂存区。
 
-![å¾ç](/Users/didi/git/blog/基础知识点深入/assets/fc5a194b-8ad0-4fd6-8c7a-fb26062bd3fb.png)
+![å¾ç](./assets/fc5a194b-8ad0-4fd6-8c7a-fb26062bd3fb.png)
 
 加入暂存区的原因有以下几点：
 
@@ -30,7 +32,7 @@
 
 ### 2. 快照
 
-![å¾ç](/Users/didi/git/blog/基础知识点深入/assets/f1e4cbe9-1f7d-4826-8a61-1f7d065e43ce.png)
+![å¾ç](./assets/f1e4cbe9-1f7d-4826-8a61-1f7d065e43ce.png)
 
 这是项目的三个版本，版本1中有两个文件A和B，然后修改了A，变成了A1，形成了版本2，接着又修改了B变为B1，形成了版本3。
 
@@ -38,7 +40,7 @@
 
 > 一个 version——可能不会使所有的文件都改变了 
 
-![å¾ç](/Users/didi/git/blog/基础知识点深入/assets/ededf2f2-9c29-4234-92f6-5c89d12bce3d.png)
+![å¾ç](./assets/ededf2f2-9c29-4234-92f6-5c89d12bce3d.png)
 
 
 
@@ -48,7 +50,7 @@
 >
 > 所以，一个文件有多个状态
 
-![å¾ç](/Users/didi/git/blog/基础知识点深入/assets/700dae41-aa3a-4b95-9afb-3fe7291c53d1.png)
+![å¾ç](./assets/700dae41-aa3a-4b95-9afb-3fe7291c53d1.png)
 
 
 
@@ -84,7 +86,7 @@ git commit -m "add readme” // 永久保存在本地仓库(通过sha-1算法，
 
 类似于下图情况：
 
-![å¾ç](/Users/didi/git/blog/基础知识点深入/assets/b39e3a39-0091-4265-ba6d-73ef0fd457b2.png)
+![å¾ç](./assets/b39e3a39-0091-4265-ba6d-73ef0fd457b2.png)
 
 来细细品味上图，那些场景需要手动解决冲突(搞个解决冲突算法)
 
@@ -103,7 +105,7 @@ for （版本1、版本3、版本6中对每个文件进行逐次比对遍历）{
 
 Merge 之后还可以做新提交
 
-![å¾ç](/Users/didi/git/blog/基础知识点深入/assets/707cff0a-95d7-4420-a6da-607281d71cd7.png)
+![å¾ç](./assets/707cff0a-95d7-4420-a6da-607281d71cd7.png)
 
 
 
@@ -111,7 +113,7 @@ Merge 之后还可以做新提交
 
 Rebase 是逐此提交与版本3 进行比较
 
-![å¾ç](/Users/didi/git/blog/基础知识点深入/assets/f7ed7492-afd8-4c69-b5c1-3034161fbb2c.png)
+![å¾ç](./assets/f7ed7492-afd8-4c69-b5c1-3034161fbb2c.png)
 
 
 

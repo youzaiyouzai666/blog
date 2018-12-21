@@ -22,7 +22,9 @@ https://github.com/youngwind/blog/issues/92
 
 https://github.com/youngwind/blog/issues/104
 
-问题描述：
+### 问题描述：
+
+Vue:
 
 ```vue
 <div id="app">
@@ -42,7 +44,7 @@ const app = new Vue({
 });
 ```
 
-
+React:
 
 ```react
 var HelloMessage = React.createClass({
@@ -54,7 +56,23 @@ var HelloMessage = React.createClass({
 ReactDOM.render(<HelloMessage name="John" />, mountNode);
 ```
 
-### 不管是`Vue`还是`React`都是把`tpl`处理，然后转换为`DOM`，需要处理点
+
+
+### 解决分析
+
+> 不管是`Vue`还是`React`都是把`tpl`处理，然后转换为`DOM`，需要处理点
+
+#### 1. 首先，要搞明白`Vue.component`做了什么？
+
+
+
+
+
+#### 2. Vue|React组件如何创建与渲染
+
+
+
+
 
 #### 1. react 解决方案
 
@@ -99,7 +117,7 @@ Vue 中`import `仅仅是个引入文件，并没有做特殊处理，所以需�
 
 
 
-vue Loader 功能：
+vueLoader 功能：
 
 - 允许为 Vue 组件的每个部分使用其它的 webpack loader，例如在 `<style>` 的部分使用 Sass 和在 `<template>` 的部分使用 Pug；
 - 允许在一个 `.vue` 文件中使用自定义块，并对其运用自定义的 loader 链；
@@ -114,3 +132,50 @@ vue Loader 功能：
 1. 可能是设计理念，
 2. Vue需要直接应用在普通的DOM结构上，然而，在这些普通的DOM结构当中，可能之前就已经存在[自定义标签](http://www.cnblogs.com/rubylouvre/p/3307413.html)了，Vue提供的注册功能正好可以解决这个命名冲突的问题。
    也就是说，假如没有注册功能，直接把组件MyComponent对应成标签，要是万一之前的DOM结构里面已经有这样一个自定义的标签，也叫mycomponent，这不就懵逼了吗？
+
+
+
+#### 3. vue 实现自动全局注册组件
+
+使用`webpack`的`require.context`来，自动的读取特定目录下面的组件，然后，程序自动的调用`Vue.component`来注册组件
+
+```vue
+import Vue from 'vue'
+import upperFirst from 'lodash/upperFirst'
+import camelCase from 'lodash/camelCase'
+
+const requireComponent = require.context(
+  // 其组件目录的相对路径
+  './components',
+  // 是否查询其子目录
+  false,
+  // 匹配基础组件文件名的正则表达式
+  /Base[A-Z]\w+\.(vue|js)$/
+)
+
+requireComponent.keys().forEach(fileName => {
+  // 获取组件配置
+  const componentConfig = requireComponent(fileName)
+
+  // 获取组件的 PascalCase 命名
+  const componentName = upperFirst(
+    camelCase(
+      // 剥去文件名开头的 `./` 和结尾的扩展名
+      fileName.replace(/^\.\/(.*)\.\w+$/, '$1')
+    )
+  )
+
+  // 全局注册组件
+  Vue.component(
+    componentName,
+    // 如果这个组件选项是通过 `export default` 导出的，
+    // 那么就会优先使用 `.default`，
+    // 否则回退到使用模块的根。
+    componentConfig.default || componentConfig
+  )
+})
+
+```
+
+
+
