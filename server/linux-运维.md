@@ -1,4 +1,4 @@
-## 常用命令
+# 常用命令
 
 ### linux 常用命令
 
@@ -6,6 +6,12 @@
 lsof -i:3008
  kill 13679
  sudo -i ## 切换root
+ 
+ ssh jackcaoyi@relay.sys.xisaojukeji.com -p25000
+ sudo -i -u xiaoju
+ dssh engine-hydra-svr00.ys
+ 
+ set -x
 ```
 
 
@@ -24,8 +30,10 @@ pm2 list
 ### git 常用命令
 
 ```git
-git checkout .
+git checkout 
 
+
+git stash  //删除本地修改
 ```
 
 
@@ -149,6 +157,94 @@ C.  cat -n test.log |tail -n +92|head -n 20
     head -n 20 则表示在前面的查询结果里再查前20条记录 
 ```
 
-## iTerm2使用
+# iTerm2使用
 
 [mac下oh-my-zsh的配置](https://zhuanlan.zhihu.com/p/26373052)
+
+
+
+
+
+# sh命令
+
+## 运行
+
+标识
+
+```shell
+#!/bin/bash
+```
+
+执行
+
+```shell
+chmod +x ./test.sh  #使脚本具有执行权限
+./test.sh  #执行脚本
+```
+
+
+
+## inux里source、sh、bash、./有什么区别
+
+[inux里source、sh、bash、./有什么区别](https://www.cnblogs.com/pcat/p/5467188.html)
+
+
+
+## 实践
+
+```sh
+echo_fail_info_and_exit() {
+    if [ $? != 0 ]
+    then
+        echo ${1}
+        exit 1
+    fi
+}
+bower install
+echo_fail_info_and_exit "bower install fail!!!"
+```
+
+
+
+# linux 命令
+
+## 1.文件目录管理
+
+[参考](http://www.runoob.com/linux/linux-file-content-manage.html)
+
+- ls: 列出目录
+- cd：切换目录
+- pwd：显示目前的目录
+- mkdir：创建一个新的目录
+- rmdir：删除一个空的目录
+- cp: 复制文件或目录
+- rm: 移除文件或目录
+- mv: 移动文件与目录，或修改文件与目录的名称
+
+
+
+## 2. 文本操作
+
+### 撤销或重复改变
+
+vi命令：
+
+1      u                        撤销上一命令对编辑缓冲区的修改
+
+2      U                        恢复当前行（即一次撤销对当前行的全部操作）
+
+3      .点号                    重复上一命令对编辑缓冲区的修改
+
+
+
+## 3. vi/vim
+
+
+
+![img](/Users/didi/git/blog/server/assets/vim-vi-workmodel.png)
+
+
+
+
+
+![img](/Users/didi/git/blog/server/assets/vi-vim-cheat-sheet-sch.gif)
