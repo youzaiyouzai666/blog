@@ -11,7 +11,6 @@ lsof -i:3008
  sudo -i -u xiaoju
  dssh engine-hydra-svr00.ys
  
- set -x
 ```
 
 
@@ -184,6 +183,38 @@ chmod +x ./test.sh  #使脚本具有执行权限
 
 
 
+## 常用功能
+
+### 1. 参数
+
+| 参数处理 | 说明                                                         |
+| -------- | ------------------------------------------------------------ |
+| $#       | 传递到脚本的参数个数                                         |
+| $*       | 以一个单字符串显示所有向脚本传递的参数。 如"$*"用「"」括起来的情况、以"$1 $2 … $n"的形式输出所有参数。 |
+| $$       | 脚本运行的当前进程ID号                                       |
+| $!       | 后台运行的最后一个进程的ID号                                 |
+| $@       | 与$*相同，但是使用时加引号，并在引号中返回每个参数。 如"$@"用「"」括起来的情况、以"$1" "$2" … "$n" 的形式输出所有参数。 |
+| $-       | 显示Shell使用的当前选项，与[set命令](http://www.runoob.com/linux/linux-comm-set.html)功能相同。 |
+| $?       | 显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。 |
+
+
+
+### 2. 流程控制语句
+
+```sh
+if condition
+then
+    command1 
+    command2
+    ...
+    commandN 
+fi #注意这是if结束语句
+```
+
+
+
+
+
 ## inux里source、sh、bash、./有什么区别
 
 [inux里source、sh、bash、./有什么区别](https://www.cnblogs.com/pcat/p/5467188.html)
@@ -192,10 +223,18 @@ chmod +x ./test.sh  #使脚本具有执行权限
 
 ## 实践
 
+### 1.执行详细信息
+
+```sh
+ set -x
+```
+
+
+
 ```sh
 echo_fail_info_and_exit() {
     if [ $? != 0 ]
-    then
+    then:
         echo ${1}
         exit 1
     fi
@@ -203,6 +242,30 @@ echo_fail_info_and_exit() {
 bower install
 echo_fail_info_and_exit "bower install fail!!!"
 ```
+
+
+
+### 2. 异常处理
+
+
+
+### 3. 抛错
+
+#### syntax error near unexpected token `fi'错误
+
+[参考](https://blog.csdn.net/sinat_37625790/article/details/76223607)
+
+问题原因
+
+​    在windows里,换行用的两个符号，回车\r，换行符号\n，在linux下是一个符号\n。
+
+解决方法
+
+​    在vi的底行模式下输入set fileformat=unix，然后保存退出就可以了。
+
+
+
+
 
 
 
@@ -248,3 +311,18 @@ vi命令：
 
 
 ![img](/Users/didi/git/blog/server/assets/vi-vim-cheat-sheet-sch.gif)
+
+### 常用功能
+
+```sh
+//关闭行号
+：set nonumber
+
+//开启行号
+：set number
+```
+
+
+
+
+
