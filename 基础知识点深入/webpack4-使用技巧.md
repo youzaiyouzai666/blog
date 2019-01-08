@@ -335,3 +335,44 @@ module.exports = {
 #### 问题——无法使用按需加载
 
 > production 环境看情况使用 dll，dll 存在一个问题：dll 预先把不常改变的包，提前编译打包，但是对于按需加载的，比如 antd 可能只用到了几个组件，使用 dll 就会全部打入，不过 react 这样可以使用。
+
+
+
+## 2. 工具——webpack-bundle-analyzer
+
+[github](https://github.com/webpack-contrib/webpack-bundle-analyzer)
+
+### 使用
+
+```node
+## Install
+# NPM
+npm install --save-dev webpack-bundle-analyzer
+# Yarn
+yarn add -D webpack-bundle-analyzer
+
+```
+
+
+
+```javascript
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+module.exports = {
+  plugins: [
+    new BundleAnalyzerPlugin()
+  ]
+}
+```
+
+### [Vue CLI 3 配置 webpack-bundle-analyzer 插件](https://segmentfault.com/a/1190000016247872)
+
+Vue cli3 webpack 使用webpack-chain来
+
+```javascript 
+//webpack-chain 配置 plugin
+config
+  .plugin(name)
+  .use(WebpackPlugin, args)
+```
+

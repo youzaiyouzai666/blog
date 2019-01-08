@@ -34,11 +34,7 @@ style={{'word-break':'break-all'}} //外面层{}表示 js，里面{}表示是一
 
 
 
-## 状态管理
 
-[对 React 状态管理的理解及方案对比](https://github.com/sunyongjian/blog/issues/36)
-
-state 自上而下流向、Props 只读
 
 
 

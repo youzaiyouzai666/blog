@@ -281,7 +281,7 @@ echo_fail_info_and_exit "bower install fail!!!"
 - mkdir：创建一个新的目录
 - rmdir：删除一个空的目录
 - cp: 复制文件或目录
-- rm: 移除文件或目录
+- rm: 移除文件或目录 rm -rf 
 - mv: 移动文件与目录，或修改文件与目录的名称
 
 
