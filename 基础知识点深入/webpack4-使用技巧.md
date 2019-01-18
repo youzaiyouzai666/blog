@@ -376,3 +376,113 @@ config
   .use(WebpackPlugin, args)
 ```
 
+# webpack chainWebpack
+
+参考：[vue-cli webpack配置](https://cli.vuejs.org/zh/guide/webpack.html)   [github](https://github.com/neutrinojs/webpack-chain)  [读 VuePress（二）：使用 Webpack-chain 链式生成 webpack 配置](https://juejin.im/post/5b900399f265da0abe26d590)
+
+> 提供了一个 webpack 原始配置的上层抽象，使其可以定义具名的 loader 规则和具名插件，并有机会在后期进入这些规则并对它们的选项进行修改。(将webpack配置完全JavaScript化)
+
+##1. 基本使用
+
+### 文件
+
+将webpack.config.js，替换为当前
+
+```javascript
+const Config = require('webpack-chain');
+const config = new Config();
+// 链式生成配置
+...
+// 导出 webpack 配置对象
+export default config.toConfig();
+```
+
+### webpack-chain 中内置的两种数据结构：ChainMap、ChainSet
+
+#### 1. ChainedSet
+
+它和 ES6 的 [Set](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Set) 类似，都拥有键值对，但值得一提的是：它通过链式方法来操作
+
+```javascript
+config
+  .entry('app')
+    .add('src/index.js')
+```
+
+等价：
+
+```javascript
+entry: {
+  app: './src/index.js'
+}
+```
+
+真正强大的是 `chainMap`提供的一系列工具functin
+
+```javascript
+add(value)
+delete(value)
+has(value)
+//深入请查API
+```
+
+#### 2. ChainedMap
+
+它和 ES6 的 [Map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map) 类似，也通过链式方法来操作
+
+> One of the core API interfaces in webpack-chain is a `ChainedMap`. A `ChainedMap` operates similar to a JavaScript Map, with some conveniences for chaining and generating configuration. If a property is marked as being a `ChainedMap`, it will have an API and methods as described below:
+
+API
+
+```javascript
+// Remove all entries from a Map.
+clear()
+// Provide an object which maps its properties and values
+// into the backing Map as keys and values.
+// You can also provide an array as the second argument
+// for property names to omit from being merged.
+// obj: Object
+// omit: Optional Array
+merge(obj, omit)
+//更多清查API
+```
+
+
+
+## 2.webpack-chain 原理简介
+
+源码比较简单，核心文件结构是以extends继承问主
+
+### 文件结构
+
+![image-20190111095141946](assets/image-20190111095141946-7171502.png)
+
+### 实现链式
+
+源码中实现：
+
+```javascript
+module.exports = class {
+  constructor(parent) {
+    this.parent = parent;
+  }
+
+  batch(handler) {
+    handler(this);
+    return this;
+  }
+
+  end() {
+    return this.parent;
+  }
+};
+```
+
+
+
+
+
+## 3. Vue cli 中使用
+
+查找源码，读源码中默认配置
+

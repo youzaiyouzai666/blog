@@ -166,7 +166,7 @@ export default class Usual extends Component {
 
 ####与mixin进行对比
 
-![img](/Users/didi/git/blog/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B7%B1%E5%85%A5/assets/f0f5b214d08abc1a1ac88dd0e006b611.png)
+![img](../../../ppt/react思考/img/mixin.png)
 
 
 

@@ -1,6 +1,6 @@
 # 基本使用
 
-参考： [pm2从入门到精通](tps://www.kancloud.cn/daiji/pm2/395273)
+参考： [pm2从入门到精通](htps://www.kancloud.cn/daiji/pm2/395273)
 
 ## 日志管理
 

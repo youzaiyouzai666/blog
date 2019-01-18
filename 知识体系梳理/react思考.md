@@ -65,7 +65,7 @@
 
 2. [Render Props](https://react.docschina.org/docs/render-props.html)
 
-   ![Component Tree](assets/components.png)
+   ![Component Tree](../../../ppt/react思考/img/components.png)
 
 
 
@@ -141,13 +141,141 @@
 2. 批处理
 3. 更新如何触发
 
+## 基本
+
+> `setState()`不是立刻更新组件。其可能是批处理或推迟更新。这使得在调用`setState()`后立刻读取`this.state`的一个潜在陷阱。代替地，使用`componentDidUpdate`或一个`setState`回调（`setState(updater, callback)`），当中的每个方法都会保证在更新被应用之后触发。
+
+#### 1. API
+
+```JavaScript
+setState(stateChange|updater, [calback])
+/*
+*第一个参数  
+*  stateChange 一个参数——仅是将stateChange浅合并到新状态中
+*  updater 一个function  (prevState, props) => stateChange //prevState表示最新state
+*第二个参数
+*  [calback]——表示DOM批处理完成后再执行,类似vue $nextTick( [callback] )
+*/
+```
 
 
 
+#### 2. 代码片段1
+
+```react
+() => {
+  this.setState({ count: this.state.count + 1 })
+  this.setState({ count: this.state.count + 1 })
+  this.setState({ count: this.state.count + 1 })
+}
+```
+
+等同：
+
+```javascript
+Object.assign(  
+  {},
+  { count: this.state.count + 1 },
+  { count: this.state.count + 1 },
+  { count: this.state.count + 1 },
+)
+```
+
+**所以答案是：1 而不是 3**
+
+那如何让答案是3呢？
+
+```react
+//方案一
+setState((prevState, props)=>{
+    count: prevState.count+1
+})
+```
+
+```react
+//方案二
+this.setState(({ count: this.state.count + 1 },()=>{
+    this.setState(({ count: this.state.count + 1 },()=>{
+    	this.setState(({ count: this.state.count + 1 })
+	})
+})
+```
+
+```react
+//方案三
+//使用生命周期钩子
+```
 
 
 
+#### 3. 代码片段2
+
+[参考](https://zhuanlan.zhihu.com/p/20328570)
+
+```react
+class Example extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      val: 0
+    };
+  }
+  
+  componentDidMount() {
+    this.setState({val: this.state.val + 1});
+    console.log(this.state.val);    // 第 1 次 log
+
+    this.setState({val: this.state.val + 1});
+    console.log(this.state.val);    // 第 2 次 log
+
+    setTimeout(() => {
+      this.setState({val: this.state.val + 1});
+      console.log(this.state.val);  // 第 3 次 log
+
+      this.setState({val: this.state.val + 1});
+      console.log(this.state.val);  // 第 4 次 log
+    }, 0);
+  }
+
+  render() {
+    return null;
+  }
+};
+```
+
+> 上面代码简单总结就是：
+>
+> ​	当在React事件处理控制之内，则state是一个批处理过程（展现是异步的）
+>
+> ​	当不在react掌控之内（setTimeout/addEventListener）中，则是一个同步过程。
+>
+> ​	具体如何判断，则看Transaction
+
+![img](assets/4fd1a155faedff00910dfabe5de143fc_hd.png)
 
 
 
+## setState Promise 化思考
+
+### 1. 基本
+
+因为 `setState()`本身是`callback`回调，会引起**回调地狱**
+
+```javascript
+setStateAsync(state){
+    return new Promise((resolve)=>{
+        this.setState(state,resolve)
+    })
+}
+```
+
+但可以使用：
+
+### componentDidUpdate
+
+```
+componentDidUpdate(prevProps, prevState, snapshot)
+```
+
+React 更新组件后，调用`componentDidUpdate`。该方法在初始渲染时候不会被调用。
 
