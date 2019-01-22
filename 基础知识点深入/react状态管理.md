@@ -94,7 +94,7 @@ https://juejin.im/post/5aa25967518825558251f61f
 
 
 
-### 1. 基本使用
+### 1. 基本使用 
 
 > **Redux 应用只有一个单一的 store**。当需要拆分数据处理逻辑时，你应该使用 [reducer 组合](https://www.redux.org.cn/docs/basics/Reducers.html)而不是创建多个 store。
 

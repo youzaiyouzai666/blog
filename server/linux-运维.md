@@ -326,3 +326,20 @@ vi命令：
 
 
 
+# 遇到问题复盘
+
+## 1.pm2  status 时好时坏
+
+Error: ENOENT: no such file or directory, uv_cwd
+
+![image-20190121143424237](assets/image-20190121143424237-8052464.png)
+
+```sh
+pm2 logs --lines 1000  ## 打印pm2 日志
+## 日志定位问题：Error: ENOENT: no such file or directory, uv_cwd
+## 猜测应该是服务pm2 本身进程问题
+ps ax | grep PM2  ## 找到pm2 进程
+kill [进程id]  ## 杀掉进程
+
+```
+
