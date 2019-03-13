@@ -1,3 +1,43 @@
+https://www.npmjs.cn/
+
+# nrm
+
+https://github.com/Pana/nrm
+
+管理多个包
+
+
+
+# 配置
+
+```cat ~/.npmrc```
+
+```
+--registry=http://npm.intra.xiaojukeji.com
+--registry=http://registry.npm.xiaojukeji.com
+```
+
+
+
+# npm提交
+
+```npm
+npm publish
+```
+
+
+
+
+
+# PM依赖包版本号~和^的区别及最佳实践
+
+https://blog.csdn.net/u014291497/article/details/70148468
+
+- ~会匹配最近的小版本依赖包，比如~1.2.3会匹配所有1.2.x版本，但是不包括1.3.0
+- ^会匹配最新的大版本依赖包，比如^1.2.3会匹配所有1.x.x的包，包括1.3.0，但是不包括2.0.0
+
+
+
 # package.json
 
 [官方文档](https://docs.npmjs.com/files/package.json)

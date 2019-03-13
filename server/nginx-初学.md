@@ -20,6 +20,10 @@
 
    复制路径可以用 Option+Command+C [参考](https://www.zhihu.com/question/22883229)
 
+3. nginx -s reload  # 重启
+
+
+
 
 
 ## 停止
@@ -40,3 +44,20 @@
 ## 配置
 配置路径 `vim /usr/local/etc/nginx/nginx.conf`
 vim 语法
+
+
+
+# nginx 进阶
+
+[【小哥哥, 跨域要不要了解下】NGINX 反向代理](https://juejin.im/post/5c0e6d606fb9a049f66bf246)
+
+## 配置
+
+[nginx服务器简单配置文件路径](https://blog.csdn.net/haoaiqian/article/details/78961998)
+
+```node
+# 默认配置
+./nginx.conf 目录
+默认配置文件     ./nginx.conf 配置中  include servers/*;
+```
+

@@ -149,3 +149,112 @@ combineReducers()
 
 [Mobx React  最佳实践](https://juejin.im/post/5a3b1a88f265da431440dc4a)
 
+[mobx学习总结](https://segmentfault.com/a/1190000013810512)
+
+[官方文档](https://cn.mobx.js.org/) 
+
+[使用mobx开发高性能react应用](https://foio.github.io/mobx-react/)
+
+## 基本
+
+#### 1. 核心概念
+
+> 原则：state尽可能的小
+>
+> 分为：普通模式与严格模式`Mobx.configure({ enforceActions: true });`
+
+
+
+> 当应用状态更新时，所有依赖于这些应用状态的监听者（包括UI、服务端数据同步函数等），都应该自动得到细粒度地更新。
+
+1. State
+
+2. computed ——autorun (区别是autorun不会被GCC自动回收)
+
+3. action—— 唯一修改state的途径
+
+   ```javascript
+   @action.bound //类似于 bind(所以不能与箭头函数一起使用)
+   ```
+
+
+
+#### 2. 异步处理
+
+只需要`action`就可以了
+
+**需要注意： action中异步处理回调需要修改observable的值，那么该回调也需要绑定action，且注意action中回调的this问题**
+
+解决this问题
+
+```javascript
+//方案1 使用@action.bound
+const Mobx = require("mobx");
+Mobx.configure({ enforceActions: true });
+const { observable, autorun, computed, extendObservable, action } = Mobx;
+class Store {
+  @observable a = 123;
+
+  @action
+  changeA() {
+    this.a = 0;
+    setTimeout(this.changeB, 1000);
+  }
+  @action.bound
+  changeB() {
+    this.a = 1000;
+  }
+}
+var s = new Store();
+autorun(() => console.log(s.a));
+s.changeA();
+```
+
+
+
+```javascript
+//方案2——直接包裹action
+
+  @action
+  changeA() {
+    this.a = 0;
+    setTimeout(action('changeB',()=>{
+      this.a = 1000;
+    }), 1000);
+  }
+}
+
+```
+
+
+
+```javascript
+//方案3 使用runInAction 解释：runInAction(f) 是 action(f)() 的语法糖。
+@action
+  changeA() {
+    this.a = 0;
+    setTimeout(
+      runInAction(() => {
+        this.a = 1000;
+      }),
+      1000
+    );
+  }
+```
+
+#### 3. 一些难点
+
+1. 无法监听`Object`新增属性，但可以通过`extendObservable(target, props)`来实现
+2. 作用域的问题
+
+
+
+#### 4. mobx-react
+
+[【译】MobX：MobX 和 React 十分钟快速入门](https://www.zcfy.cc/article/mobx-ten-minute-introduction-to-mobx-and-react-4306.html?t=new)
+
+
+
+#### 5. demo
+
+官方基本 https://github.com/mobxjs/mobx-react-boilerplate

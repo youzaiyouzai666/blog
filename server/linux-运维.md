@@ -29,9 +29,7 @@ pm2 list
 ### git 常用命令
 
 ```git
-git checkout 
-
-
+git checkout
 git stash  //删除本地修改
 ```
 
@@ -322,7 +320,18 @@ vi命令：
 ：set number
 ```
 
+## 4. 用户切换
 
+[root用户和user用户的相互切换](https://www.cnblogs.com/weiweiqiao99/archive/2010/11/10/1873761.html)
+
+```sh
+#从user用户切换到root用户
+sudo su 
+#从root用户切回user用户
+su user (user是你自己安装时候的用户名)
+直接输入exit，
+也可Ctrl+D组合键推出
+```
 
 
 
@@ -342,4 +351,6 @@ ps ax | grep PM2  ## 找到pm2 进程
 kill [进程id]  ## 杀掉进程
 
 ```
+
+
 
