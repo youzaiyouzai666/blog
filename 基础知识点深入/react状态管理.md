@@ -56,10 +56,6 @@ https://juejin.im/post/5aa25967518825558251f61f
 
 
 
-
-
-
-
 # React Context
 
 [聊一聊我对 React Context 的理解以及应用](https://juejin.im/post/5a90e0545188257a63112977)
@@ -74,11 +70,11 @@ https://juejin.im/post/5aa25967518825558251f61f
 
 
 
-![statetx](assets/34917598-8922ea26-f983-11e7-9318-b2c277a6c7b6-20190104112719776.png)
+![statetx](../../ppt/react状态管理/img/无状态.png)
 
 
 
-![storetx](assets/34917603-9d321a96-f983-11e7-8fea-e4764fef1010.png)
+![storetx](../../ppt/react状态管理/img/有状态.png)
 
 ### 2. 变化与异步混淆
 
@@ -138,10 +134,6 @@ combineReducers()
 ### 2. react-redux
 
 基于 [容器组件和展示组件相分离](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) 的开发思想
-
-
-
-
 
 
 

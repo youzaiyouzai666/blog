@@ -1,5 +1,15 @@
 # Events
 
+## 0. nvm
+
+```node
+nvm alias default 10 //设置默认版本
+nvm install stable //安装最稳定版本
+
+```
+
+
+
 ## 1.基本使用
 
 ### 创建events

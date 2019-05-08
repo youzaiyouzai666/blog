@@ -254,7 +254,8 @@ var p = function(d){
        setTimeout(()=>{
 			resolve(d);
 		},Math.random()*1000);//因为异步执行时间无法确认
-    });
+    }
+                    );
 };
 var ps = [];
 arrs.forEach(function(arr){
