@@ -45,3 +45,60 @@ map.centerAndZoom(point, 15);                 // 初始化地图，设置中心�
 > 分为：内置控件  自定义控件
 
 <http://lbsyun.baidu.com/index.php?title=jspopular3.0/guide/widget>
+
+
+
+#### 3.个性化地图
+
+主要是对地图的配色等修改
+
+
+
+### 在地图上绘制
+
+<http://lbsyun.baidu.com/index.php?title=jspopular3.0/guide/mark>
+
+#### 1. 标注
+
+**点**
+
+> 点可以添加图标
+>
+> 可以绑定事件
+>
+> 可拖拽
+
+```javascript
+var map = new BMap.Map("container");    
+var point = new BMap.Point(116.404, 39.915);  //创建坐标点  
+map.centerAndZoom(point, 15);    						//初始化地图，设置中心点坐标和地图级别
+var marker = new BMap.Marker(point);        // 创建标注    
+map.addOverlay(marker);                     // 将标注添加到地图中 
+```
+
+
+
+线
+
+```javascript
+var polyline = new BMap.Polyline([
+    new BMap.Point(116.399, 39.910),
+    new BMap.Point(116.405, 39.920)
+    ],
+    {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5}
+    );
+map.addOverlay(polyline);
+```
+
+
+
+### 事件
+
+<http://lbsyun.baidu.com/index.php?title=jspopular3.0/guide/event>
+
+<http://lbsyun.baidu.com/cms/jsapi/reference/jsapi_reference_3_0.html>
+
+![image-20190522144549031](assets/image-20190522144549031.png)
+
+
+
