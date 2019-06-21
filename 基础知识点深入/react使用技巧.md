@@ -36,9 +36,63 @@ style={{'word-break':'break-all'}} //外面层{}表示 js，里面{}表示是一
 
 
 
+## 组件分类
+
+### 1. 函数式组件
+
+### 2. class 组件
+
+### 3. Fragments
+
+> [官方](https://react.docschina.org/docs/fragments.html)
+>
+> React 中的一个常见模式是一个组件返回多个元素。Fragments 允许你将子列表分组，而无需向 DOM 添加额外节点。
+
+```react
+render() {
+  return (
+    <React.Fragment>
+      <ChildA />
+      <ChildB />
+      <ChildC />
+    </React.Fragment>
+  );
+}
+```
+
+#### 带 key 的 Fragments
+
+```react
+function Glossary(props) {
+  return (
+    <dl>
+      {props.items.map(item => (
+        // 没有`key`，React 会发出一个关键警告
+        <React.Fragment key={item.id}>
+          <dt>{item.term}</dt>
+          <dd>{item.description}</dd>
+        </React.Fragment>
+      ))}
+    </dl>
+  );
+}
+```
 
 
-react组件通信
+
+### 4.Portals
+
+> Portal 提供了一种将子节点渲染到存在于父组件以外的 DOM 节点的优秀的方案。
+
+
+
+
+
+
+
+## react组件通信
+
+
 
 
 
