@@ -96,3 +96,11 @@ export default class extends Vue {
 1. 最好写``lang="tsx"`` 而不是 ``lang="ts"``
 2. 在配置好ts后，无需再单独配jsx
 
+
+
+
+
+# vue  + vuex
+
+参考：[git](https://github.com/qidaizhe11/vue-vuex-typescript-demo)
+

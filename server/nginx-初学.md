@@ -1,4 +1,9 @@
 # nginx
+
+https://zhuanlan.zhihu.com/p/34943332
+
+
+
 ## 安装
 通过 brow 安装，也就是 管理也是通过 brow管理
 

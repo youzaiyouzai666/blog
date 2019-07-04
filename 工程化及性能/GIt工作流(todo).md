@@ -84,6 +84,8 @@ git commit -m "add readme” // 永久保存在本地仓库(通过sha-1算法，
 
 > ###一般版本只需要移动指针就能解决问题，但移动指针不能解决问题时，就需要我们来解决冲突
 
+
+
 类似于下图情况：
 
 ![å¾ç](./assets/b39e3a39-0091-4265-ba6d-73ef0fd457b2.png)
@@ -111,9 +113,41 @@ Merge 之后还可以做新提交
 
 #### Rebase
 
-Rebase 是逐此提交与版本3 进行比较
+> Rebase 是**逐此**提交与版本3 进行比较
+>
+> 可能多次解决冲突
+
+
 
 ![å¾ç](./assets/f7ed7492-afd8-4c69-b5c1-3034161fbb2c.png)
+
+https://juejin.im/post/5b46c784f265da0f540513cd
+
+
+
+```sh
+git rebase master
+```
+
+提示：
+
+![image-20190704203700640](assets/image-20190704203700640.png)
+
+发现 myfile.txt 代码冲突了
+
+```sh
+vim myfile.txt
+
+git add myfile.txt
+
+git rebase --continue
+```
+
+```sh
+## 切换分支
+git checkout master
+git merge test
+```
 
 
 
@@ -127,7 +161,29 @@ Rebase 是逐此提交与版本3 进行比较
 
 ### 4. 版本回退revert&reset(todo)
 
+> 一般分为 在  工作区&暂存区  与 本地仓库与远程仓库
 
+#### 具体解决
+
+```
+git status       //有提示
+git checkout -- <file>  //未提交到远程
+```
+
+
+
+```linux
+//提交到仓库后 也就是 commit命令后
+git log
+it reset --hard HEAD
+git push -vim fq   //强制提交到远程分支
+```
+
+
+
+```
+git reflogre
+```
 
 
 
