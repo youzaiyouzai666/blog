@@ -68,6 +68,14 @@ refs/heads/master  ## 分支目录
 
 ## 实践
 
+### 常用功能
+
+```sh
+git log --graph --pretty=oneline --abbrev-commit  ## 查看提交树状图
+```
+
+
+
 ### 1. 一般提交（Add&Commit）
 
 ```node
@@ -176,7 +184,7 @@ git checkout -- <file>  //未提交到远程
 //提交到仓库后 也就是 commit命令后
 git log
 it reset --hard HEAD
-git push -vim fq   //强制提交到远程分支
+git push --force   //强制提交到远程分支
 ```
 
 
@@ -194,4 +202,25 @@ git reflogre
 
 
 ### 6.bisect(todo)
+
+
+
+
+
+### 7. 分支管理
+
+#### 创建
+
+``` sh
+git branch dev ## 创建分支
+ git checkout -b dev  ## 创建分支 并切换到 Dev 分支
+```
+
+#### 删除
+
+``` sh
+git branch -d dev  ## 删除 dev分支
+```
+
+
 
