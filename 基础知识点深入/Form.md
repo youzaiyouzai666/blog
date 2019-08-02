@@ -1,3 +1,25 @@
+# 表单校验
+
+## 原生
+
+[MDN](https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Forms/Data_form_validation)
+
+当一个元素校验通过时：
+
+- 该元素将可以通过 CSS 伪类 [`:valid`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:valid) 进行特殊的样式化；
+- 如果用户尝试提交表单，如果没有其它的控制来阻止该操作（比如JavaScript即可阻止提交），那么该表单的数据会被提交。
+
+如果一个元素未校验通过：
+
+- 该元素将可以通过 CSS 伪类 [`:invalid`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:invalid) 进行列表的样式化；
+- 如果用户尝试提交表单，浏览器会展示出错误消息，并停止表单的提交
+
+
+
+## 第三方
+
+[async-validator](https://www.npmjs.com/package/async-validator)  本质上是 校验数据是否满足
+
 # FormData
 
 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/Using_FormData_Objects)
@@ -48,9 +70,11 @@ request.send(formData);
 
 [四种常见的 POST 提交数据方式](https://imququ.com/post/four-ways-to-post-data-in-http.html)
 
-## 1. application/x-www-form-urlencoded
+## 1. application/x-www-form-urlencoded——浏览器原生(不是ajax)
 
 原生<form>表单，如果不设置 `enctype`属性，那么最终就会以 application/x-www-form-urlencoded 方式提交数据
+
+ajax的会通过数据类型 自己判断
 
 
 

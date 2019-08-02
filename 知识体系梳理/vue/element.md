@@ -19,3 +19,17 @@
 
 但也可以在 `el-checkbox`中改变
 
+
+
+# 表单
+
+## 表单校验
+
+[API](https://element.eleme.cn/#/zh-CN/component/form)
+
+https://www.daozhao.com/8264.html
+
+![image-20190711155938944](assets/image-20190711155938944.png)
+
+**表单校验是通过那 `model`中`prop`来执行`rules`的规则**
+

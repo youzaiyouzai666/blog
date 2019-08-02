@@ -100,5 +100,31 @@ Vue.component('anchored-heading', {
 
 
 
+# v-bind
+
+[vue.js - v-bind 的一些理解和思考](https://www.jianshu.com/p/98dfa4c6389c)
+
+[demo](https://codepen.io/youzaiyouzai666/pen/agreKd?editors=1010)
+
+## 1.基本功能
+
+###执行运算
+
+> 支持一个**单一 JavaScript 表达式** （`v-for` 除外）
+
+
+
+### 执行函数
+
+
+
+
+
+## 2.`v-bind` 用于 `class` 和 `style` 时，Vue.js 做了专门的增强
+
+> 在将 `v-bind` 用于 `class` 和 `style` 时，Vue.js 做了专门的增强。表达式结果的类型除了字符串之外，还可以是对象或数组。
+
+
+
 
 

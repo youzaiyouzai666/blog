@@ -1,5 +1,7 @@
 # 介绍
 
+![无标题的笔记本 (assets/无标题的笔记本 (1)-2.jpg)-2](../../../Downloads/无标题的笔记本 (1)-2.jpg)
+
 [w3c](https://www.w3.org/TR/file-upload/)
 
 [通过 File API 使用 JavaScript 读取文件](https://www.html5rocks.com/zh/tutorials/file/dndfiles/)
@@ -36,6 +38,8 @@
 # Base64的编码与解码
 
 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/WindowBase64/Base64_encoding_and_decoding)
+
+>  使得二进制数据在解释成 radix-64 的表现形式后能够用 ASCII 字符串的格式表示出来
 
 - [`atob()`](https://developer.mozilla.org/zh-CN/docs/Web/API/WindowBase64/atob)  解码
 - [`btoa()`](https://developer.mozilla.org/zh-CN/docs/Web/API/WindowBase64/btoa) 编码
