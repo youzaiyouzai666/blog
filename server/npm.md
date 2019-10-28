@@ -8,6 +8,14 @@ https://github.com/Pana/nrm
 
 
 
+
+
+## linux 跑 npm run start
+
+> nohup npm run start  > /dev/null 2>&1 &
+
+
+
 # 配置
 
 ```cat ~/.npmrc```

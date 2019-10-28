@@ -176,15 +176,16 @@ git merge test
 ```
 git status       //有提示
 git checkout -- <file>  //未提交到远程
+git checkout .
 ```
 
 
 
 ```linux
 //提交到仓库后 也就是 commit命令后
-git log
-it reset --hard HEAD
-git push --force   //强制提交到远程分支
+re 
+git reset --hard HEAD
+git push --forcere  //强制提交到远程分支
 ```
 
 
@@ -223,4 +224,13 @@ git branch -d dev  ## 删除 dev分支
 ```
 
 
+
+## 拉取远程分支并创建
+
+```sh
+## 方法一
+git checkout -b 本地分支名x origin/远程分支名x
+## 方法二
+git fetch origin 远程分支名x:本地分支名x
+```
 

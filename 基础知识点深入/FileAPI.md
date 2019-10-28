@@ -1,12 +1,18 @@
 # 介绍
 
+
+
 ![无标题的笔记本 (assets/无标题的笔记本 (1)-2.jpg)-2](../../../Downloads/无标题的笔记本 (1)-2.jpg)
+
+[在web应用程序中使用文件](https://developer.mozilla.org/zh-CN/docs/Web/API/File/Using_files_from_web_applications#Example.3A_Using_object_URLs_to_display_images)
 
 [w3c](https://www.w3.org/TR/file-upload/)
 
 [通过 File API 使用 JavaScript 读取文件](https://www.html5rocks.com/zh/tutorials/file/dndfiles/)
 
 [文件对象详解](https://juejin.im/post/5b32fb5cf265da598223df9e)
+
+通过使用在HTML5中加入到DOM的文件API，使在web内容中让用户选择本地文件然后读取这些文件的内容成为可能。用户可以通过HTML中的[``](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input)元素或者是通过拖拽来选择本地文件。
 
 > 使用 File API 在向服务器发送图片的过程中创建图片的缩略图预览，或者允许应用程序在用户离线时保存文件引用
 

@@ -69,6 +69,10 @@ clearRect(x, y, width, height)
 
 
 
+### rotate——旋转
+
+https://yi-jy.com/2015/06/10/canvas-rotate-origin/
+
 
 
 ### 旋转

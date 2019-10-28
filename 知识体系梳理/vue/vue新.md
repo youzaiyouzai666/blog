@@ -128,3 +128,54 @@ Vue.component('anchored-heading', {
 
 
 
+
+
+# 组件
+
+## 1. 动态组件
+
+
+
+## 2. 递归组件
+
+// 递归组件: 组件在它的模板内可以递归的调用自己，只要给组件设置name组件就可以了。
+// 设置那么House在组件模板内就可以递归使用了,不过需要注意的是，
+// 必须给一个条件来限制数量，否则会抛出错误: max stack size exceeded
+// 组件递归用来开发一些具体有未知层级关系的独立组件。比如：
+// 联级选择器和树形控件 
+
+```vue
+<template>
+  <div v-for="(item,index) in treeArr">
+      子组件，当前层级值： {{index}} <br/>
+      <!-- 递归调用自身, 后台判断是否不存在改值 -->
+      <tree :item="item.arr" v-if="item.flag"></tree>
+  </div>
+</template>
+<script>
+export default {
+  // 必须定义name，组件内部才能递归调用
+  name: 'tree',
+  data(){
+    return {}
+  },
+  // 接收外部传入的值
+  props: {
+     item: {
+      type:Array,
+      default: ()=>[]
+    }
+  }
+}
+</script>
+
+作者：火狼1
+链接：https://juejin.im/post/5d9d386fe51d45784d3f8637
+来源：掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+```
+
+
+
+## 3. 函数组件
+
