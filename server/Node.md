@@ -57,3 +57,13 @@ myEmitter.emit('event', 'a', 'b');
 
 
 
+# 调试
+
+## 方案一：
+
+[node官方]([http://nodejs.cn/api/debugger.html#debugger_v8_inspector_integration_for_node_js](http://nodejs.cn/api/debugger.html#debugger_v8_inspector_integration_for_node_js))
+
+```node
+node  --inspect-brk xxxx.js  //
+```
+
