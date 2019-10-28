@@ -10,7 +10,8 @@ var ignores = [
   ".git",
   ".DS_Store",
   "README.md",
-  ".vscode"
+  ".vscode",
+  "img"
 ] //需要忽略的文件夹
 var charSet = {
   node: "├── ", //节点

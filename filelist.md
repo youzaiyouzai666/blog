@@ -30,18 +30,6 @@
 │       └── Form.md
 │       └── html多媒体.md
 │       └── html滚动与位置.md
-│   ├── img
-│       └── Promise.png
-│       └── promise-flow.png
-│       └── promise-flow.svg
-│       └── prototype1.png
-│       └── 原型链.png
-│       └── 原型链0.png
-│       ├── 网络
-│           └── 七层协议.png
-│           └── 模型对比.png
-│           └── 物理设备.png
-│       └── 网络协议7层.png
 │   └── javascript隐式转换.md
 │   └── 函数式编程.md
 │   └── 可配置页面.md
@@ -83,8 +71,6 @@
 ├── 生活
 │   └── 视力恢复.md
 ├── 知识体系梳理
-│   ├── img
-│       └── 分为枚举和继承属性.png
 │   ├── react
 │       └── mobx.md
 │       └── react-ant使用.md
