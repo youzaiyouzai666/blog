@@ -65,7 +65,6 @@ function writeFile(data) {
       console.error("生成目录失败", err)
       process.exit(1)
     }
-    q23r
     console.log("生成目录成功")
     process.exit(0)
   })
