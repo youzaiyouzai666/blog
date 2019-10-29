@@ -66,7 +66,7 @@ function writeFile(data) {
       process.exit(1)
     }
     console.log("生成目录成功")
-    process.exit(0)
+    process.exit("生成目录成功")
   })
 }
 
