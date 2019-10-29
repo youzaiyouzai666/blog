@@ -63,9 +63,10 @@ function writeFile(data) {
   fs.writeFile(filePath + "/" + "README.md", data + "\n", function(err) {
     if (err) {
       console.error("生成目录失败", err)
-      throw err
+      process.exit(1)
     }
     console.log("生成目录成功")
+    process.exit(0)
   })
 }
 
