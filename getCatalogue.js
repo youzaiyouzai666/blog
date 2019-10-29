@@ -60,7 +60,7 @@ function link(name, path = "") {
 function writeFile(data) {
   var head = fs.readFileSync(filePath + "/header.md")
   var data = head + "```" + data.join("\n") + "``` \n"
-  fs.writeFile(filePath + "/" + "filelist.md", data + "\n", function(err) {
+  fs.writeFile(filePath + "/" + "README.md", data + "\n", function(err) {
     if (err) throw err
   })
 }
