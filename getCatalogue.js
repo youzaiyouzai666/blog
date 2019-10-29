@@ -61,7 +61,11 @@ function writeFile(data) {
   var head = fs.readFileSync(filePath + "/header.md")
   var data = head + "```" + data.join("\n") + "``` \n"
   fs.writeFile(filePath + "/" + "README.md", data + "\n", function(err) {
-    if (err) throw err
+    if (err) {
+      console.error("生成目录失败", err)
+      throw err
+    }
+    console.log("生成目录成功")
   })
 }
 
