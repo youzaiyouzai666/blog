@@ -234,3 +234,37 @@ git checkout -b 本地分支名x origin/远程分支名x
 git fetch origin 远程分支名x:本地分支名x
 ```
 
+
+
+# git hook
+
+## 1.分类
+
+客户端hooks（Client-Side Hooks）和服务端hooks（Server-Side Hooks）
+
+### Client-Side Hooks
+
+- pre-commit: 执行`git commit`命令时触发，常用于检查代码风格
+- prepare-commit-msg: `commit message`编辑器呼起前`default commit message`创建后触发，常用于生成默认的[标准化的提交说明](https://conventionalcommits.org/)
+- commit-msg: 开发者编写完并确认`commit message`后触发，常用于校验提交说明是否标准
+- post-commit: 整个`git commit`完成后触发，常用于邮件通知、提醒
+- applypatch-msg: 执行`git am`命令时触发，常用于检查命令提取出来的提交信息是否符合特定格式
+- pre-applypatch: `git am`提取出补丁并应用于当前分支后，准备提交前触发，常用于执行测试用例或检查缓冲区代码
+- post-applypatch: `git am`提交后触发，常用于通知、或补丁邮件回复（此钩子不能停止`git am`过程）
+- pre-rebase: 执行`git rebase`命令时触发
+- post-rewrite: 执行会替换`commit`的命令时触发，比如`git rebase`或`git commit --amend`
+- post-checkout: 执行`git checkout`命令成功后触发，可用于生成特定文档，处理大二进制文件等
+- post-merge: 成功完成一次 `merge`行为后触发
+- pre-push: 执行`git push`命令时触发，可用于执行测试用例
+- pre-auto-gc: 执行垃圾回收前触发
+
+### Server-Side Hooks
+
+- pre-receive: 当服务端收到一个push操作请求时触发，可用于检测push的内容
+- update: 与pre-receive相似，但当一次push想更新多个分支时，pre-receive只执行一次，而此钩子会为每一分支都执行一次
+- post-receive: 当整个push操作完成时触发，常用于服务侧同步、通知
+
+
+
+## husky
+

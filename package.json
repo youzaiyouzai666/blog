@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "husky": "^3.0.9"
+  },
+  "scripts": {
+    "build": "node getCatalogue.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run build"
+    }
+  }
+}

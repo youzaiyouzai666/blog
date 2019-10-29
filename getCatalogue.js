@@ -34,9 +34,8 @@ function readFile(path, level) {
           for (var i = 2; i < level; i++) {
             arr += charSet.indent
           }
-          fileArr.push(charSet.pipe + arr + charSet.last + filename)
+          fileArr.push(charSet.pipe + arr + charSet.last + link(filename, path))
         }
-        writeFile(fileArr)
       } else if (stats.isDirectory()) {
         if (level === 1) {
           fileArr.push(charSet.node + filename)
@@ -47,16 +46,23 @@ function readFile(path, level) {
           }
           fileArr.push(charSet.pipe + str + charSet.node + filename)
         }
-        writeFile(fileArr)
         readFile(path + "/" + filename, level + 1)
       }
     }
   })
+  writeFile(fileArr)
+}
+function link(name, path = "") {
+  var index = path.match(filePath)[0].length
+  var namePath = path.slice(index + 1) + `/${name}`
+  return `[${name}](https://github.com/youzaiyouzai666/blog/blob/master/${namePath})`
 }
 function writeFile(data) {
-  var data = data.join("\n")
+  var head = fs.readFileSync(filePath + "/header.md")
+  var data = head + "```" + data.join("\n") + "``` \n"
   fs.writeFile(filePath + "/" + "filelist.md", data + "\n", function(err) {
     if (err) throw err
   })
 }
+
 readFile(filePath, 1)
