@@ -3,6 +3,7 @@
     "husky": "^3.0.9"
   },
   "scripts": {
+    "precommit": "npm build",
     "build": "node getCatalogue.js"
   },
   "husky": {
