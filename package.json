@@ -8,7 +8,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm build",
-      "commit-msg": "echo $HUSKY_GIT_PARAMS"
+      "commit-msg": "echo 'husky123123'"
     }
   }
 }
