@@ -43,9 +43,6 @@
 │   └── [cssGUI加速.md](https://github.com/youzaiyouzai666/blog/blob/master/css/cssGUI加速.md)  
 │   └── [postCss.md](https://github.com/youzaiyouzai666/blog/blob/master/css/postCss.md)  
 │   └── [transform对普通元素的影响.md](https://github.com/youzaiyouzai666/blog/blob/master/css/transform对普通元素的影响.md)  
-├── getCatalogue.js  
-├── header.md  
-├── package.json  
 ├── server  
 │   └── [Node.md](https://github.com/youzaiyouzai666/blog/blob/master/server/Node.md)  
 │   └── [koa.md](https://github.com/youzaiyouzai666/blog/blob/master/server/koa.md)  
@@ -55,7 +52,6 @@
 │   └── [pm2.md](https://github.com/youzaiyouzai666/blog/blob/master/server/pm2.md)  
 │   └── [网络.md](https://github.com/youzaiyouzai666/blog/blob/master/server/网络.md)  
 │   └── [网络安全.md](https://github.com/youzaiyouzai666/blog/blob/master/server/网络安全.md)  
-├── yarn.lock  
 ├── 业务  
 │   └── [Untitled.md](https://github.com/youzaiyouzai666/blog/blob/master/业务/Untitled.md)  
 ├── 代码文档  

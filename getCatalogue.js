@@ -11,6 +11,10 @@ var ignores = [
   ".DS_Store",
   "README.md",
   ".vscode",
+  "getCatalogue.js",
+  "header.md",
+  "package.json",
+  "yarn.lock",
   "img"
 ]; //需要忽略的文件夹
 var charSet = {
