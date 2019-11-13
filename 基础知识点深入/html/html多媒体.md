@@ -53,3 +53,45 @@ gear4/prog_index.m3u8
 
 下面看一下三种技术的对比：
 ![live-tech-table.png](./assets/2522209547-20181229165129974.png)
+
+
+
+# video.js
+
+[中文文档](https://github.com/ShmilyLin/video.js.zh-cn#)
+
+
+
+# Preload
+
+[google Developers](https://developers.google.com/web/fundamentals/media/fast-playback-with-video-preload)
+
+[翻译](https://www.jishuwen.com/d/2Wnx)
+
+
+
+# hls.js
+
+[git](https://github.com/video-dev/hls.js/)
+
+[hls.js 源码解读【1】](https://juejin.im/entry/5a02d0d2f265da43284049b0)
+
+
+
+# Video html
+
+[developers.google](https://developers.google.com/web/fundamentals/media/video)
+
+
+
+# Media Source Extensions
+
+[developers.google](https://developers.google.com/web/fundamentals/media/mse/basics)
+
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/MediaSource)
+
+[Video](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/video)
+
+> 之前浏览器提供的媒体播放功能，不提供 分段加载，缓冲能力
+>
+> 现在客户端可以完全在JavaScript中预取和[缓冲](https://zh.wikipedia.org/wiki/緩衝器)[流媒体](https://zh.wikipedia.org/wiki/流媒体)的代码

@@ -63,3 +63,13 @@ console.log(decodeURIComponent(escape(atob('5oiR5piv5Lit5paH'))));//我是中文
 
 
 
+# URL.createObjectURL()
+
+[MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/URL/createObjectURL)
+
+简单的理解一下就是将一个`file`或`Blob`类型的对象转为`UTF-16`的字符串，并保存在当前操作的`document`下
+
+
+
+# URL.createObjectURL() vs FileReader.readAsDataURL()
+

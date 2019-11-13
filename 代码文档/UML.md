@@ -38,3 +38,13 @@ https://www.visual-paradigm.com/cn/guide/uml-unified-modeling-language/what-is-u
 
 # 活动图
 
+## 消息
+
+**消息的类型与符号**
+
+ ![img](assets/20203237-684175dd526349d5bd9e651c907d6e95.png)
+
+
+
+#
+
