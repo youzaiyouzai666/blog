@@ -28,25 +28,25 @@ function readFile(path, level) {
       var stats = fs.statSync(path + "/" + filename);
       if (stats.isFile()) {
         if (level === 1) {
-          fileArr.push(charSet.node + filename + "\n");
+          fileArr.push(charSet.node + filename + "  ");
         } else {
           var arr = "";
           for (var i = 2; i < level; i++) {
             arr += charSet.indent;
           }
           fileArr.push(
-            charSet.pipe + arr + charSet.last + link(filename, path) + "\n"
+            charSet.pipe + arr + charSet.last + link(filename, path) + "  "
           );
         }
       } else if (stats.isDirectory()) {
         if (level === 1) {
-          fileArr.push(charSet.node + filename + "\n");
+          fileArr.push(charSet.node + filename + "  ");
         } else {
           var str = "";
           for (var i = 2; i < level; i++) {
             str += charSet.indent;
           }
-          fileArr.push(charSet.pipe + str + charSet.node + filename + "\n");
+          fileArr.push(charSet.pipe + str + charSet.node + filename + "  ");
         }
         readFile(path + "/" + filename, level + 1);
       }
