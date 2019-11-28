@@ -6,9 +6,13 @@ https://github.com/Pana/nrm
 
 管理多个包
 
+#error
 
+1. ```swift
+   ERR! code E401
+   ```
 
-
+npm login
 
 ## linux 跑 npm run start
 

@@ -486,3 +486,11 @@ module.exports = class {
 
 查找源码，读源码中默认配置
 
+
+
+
+
+# webpack Tree Shaking 
+
+[你的Tree-Shaking并没什么卵用](https://juejin.im/post/5a5652d8f265da3e497ff3de)
+
