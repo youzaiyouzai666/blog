@@ -72,3 +72,14 @@ componentWillUpdate
 [API](https://zh-hans.reactjs.org/docs/react-component.html#getsnapshotbeforeupdate)
 
 ![image-20190828175035536](assets/image-20190828175035536.png)
+
+# 最佳实践
+
+## 使用场景
+
+> 1. state 的值在任何时候都取决于 props 使用`static getDerivedStateFromProps()`
+>
+> 2. **执行副作用** ——请改用 [`componentDidUpdate`](https://react.docschina.org/docs/react-component.html#componentdidupdate)
+> 3.  **prop 更改时重新计算某些数据**，[请使用 memoization helper 代替](https://react.docschina.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization)
+> 4. **prop 更改时“重置”某些 state** ，使组件[完全受控](https://react.docschina.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component)或[使用 `key` 使组件完全不受控](https://react.docschina.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) 代替。
+

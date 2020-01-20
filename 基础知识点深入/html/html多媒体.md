@@ -95,3 +95,11 @@ gear4/prog_index.m3u8
 > 之前浏览器提供的媒体播放功能，不提供 分段加载，缓冲能力
 >
 > 现在客户端可以完全在JavaScript中预取和[缓冲](https://zh.wikipedia.org/wiki/緩衝器)[流媒体](https://zh.wikipedia.org/wiki/流媒体)的代码
+
+
+
+# 播放器
+
+[视频自适应播放实践](https://myslide.cn/slides/3866#)
+
+![image-20200116174259297](assets/image-20200116174259297.png)

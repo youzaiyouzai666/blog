@@ -239,3 +239,5 @@ export default class Usual extends Component {
 ## React Hooks
 
 [30分钟精通React今年最劲爆的新特性——React Hooks](https://juejin.im/post/5be3ea136fb9a049f9121014)
+
+[React Hook的实现原理和最佳实践](https://zhuanlan.zhihu.com/p/75146261)

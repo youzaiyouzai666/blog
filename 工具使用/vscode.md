@@ -7,3 +7,8 @@ Ctrl + - 后退
 Ctrl + Shift + - 前进
 ```
 
+
+
+## 插件
+
+Comment Translate — 注释翻译
