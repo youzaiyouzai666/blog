@@ -52,7 +52,7 @@ style={{'word-break':'break-all'}} //外面层{}表示 js，里面{}表示是一
 render() {
   return (
     <React.Fragment>
-      <ChildA />
+      <ChildA  />
       <ChildB />
       <ChildC />
     </React.Fragment>

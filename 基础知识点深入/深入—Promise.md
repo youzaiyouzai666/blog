@@ -311,7 +311,7 @@ new Promise1(function(resolve){
 //在then注册回调之前，resolve就已经执行了
 new Promise1(function(resolve){
     console.log(0)
-	resolve(1);
+	  resolve(1);
 }).then(function(d){
    console.log(d);
 })

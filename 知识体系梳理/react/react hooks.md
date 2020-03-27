@@ -20,8 +20,6 @@
 >
 > **React Hooks 的意思是，组件尽量写成纯函数，如果需要外部功能和副作用，就用钩子把外部代码"钩"进来。** React Hooks 就是那些钩子。
 
-> - 
-
 ## Hook 规则
 
 >### 只在最顶层使用 Hook
@@ -41,8 +39,6 @@
 
 ## useState()：状态钩子
 
-<iframe src="https://baidu.com" width="700px" height="500px" frameborder="0" scrolling="no"> </iframe>
-
 <iframe
      src="https://codesandbox.io/embed/nifty-waterfall-4i2dq?fontsize=14&hidenavigation=1&theme=dark"
      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
@@ -50,4 +46,41 @@
      allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb"
      sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
    ></iframe>
+
+
+
+# 进阶
+
+## 1. useState & useMemo & useCallback
+
+[【译】什么时候使用 useMemo 和 useCallback](https://jancat.github.io/post/2019/translation-usememo-and-usecallback/)
+
+```react
+//useMemo
+import React, { memo, useState, useMemo } from "react";
+function App() {
+    const [value, setValue] = useState(0);
+    const increase = useMemo(() => {
+        if(value > 2) return value + 1;
+    }, [value]);
+    return (
+        <div>
+            <Child value={value} />
+            <button
+                type="button"
+                onClick={() => {
+                    setValue(value + 1);
+                }}
+            >
+                value:{value},increase:{increase || 0}
+            </button>
+        </div>
+    );
+}
+const Child = memo(function Child(props) {
+    console.log('Child render')
+    return <h1>value:{props.value}</h1>;
+});
+export default App;
+```
 

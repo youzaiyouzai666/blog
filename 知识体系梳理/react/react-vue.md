@@ -179,3 +179,34 @@ requireComponent.keys().forEach(fileName => {
 
 
 
+## 状态改变
+
+```vue
+this.data.a = 'b'
+```
+
+
+
+```rea
+this.state.a = 'b'//错误
+this.setState({
+	a:'b'
+})
+//列外
+constructor(){
+ super()
+ this.state = {
+ 	a:'a'
+ }
+ this.state.a = 'c'
+}
+```
+
+
+
+```react
+
+```
+
+
+

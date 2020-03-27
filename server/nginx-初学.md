@@ -66,3 +66,48 @@ vim 语法
 默认配置文件     ./nginx.conf 配置中  include servers/*;
 ```
 
+
+
+
+
+## 配置
+
+```sh
+nginx -t  //可以查看nginx配置
+```
+
+
+
+
+
+## 异常
+
+1. nginx: [emerg] socket() [::]:80 failed (97: Address family not supported by protocol)
+
+修改nginx配置文件后，重启报错：
+
+nginx: [emerg] socket() [::]:80 failed (97: Address family not supported by protocol)
+
+解决办法：
+
+vim /etc/nginx/conf.d/default.conf
+将:
+
+```
+listen       80 default_server;
+listen       [::]:80 default_server;
+```
+
+改为：
+
+```
+listen       80;listen     
+#[::]:80 default_server;
+```
+
+
+
+
+
+
+
