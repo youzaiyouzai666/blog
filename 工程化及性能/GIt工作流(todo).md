@@ -268,3 +268,20 @@ git fetch origin 远程分支名x:本地分支名x
 
 ## husky
 
+
+
+
+
+# 常用 
+
+## tag
+
+```git
+## 创建
+git tag ##名称
+## 提交
+git push --tags
+```
+
+
+
