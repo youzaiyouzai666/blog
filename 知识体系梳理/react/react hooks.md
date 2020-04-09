@@ -48,6 +48,10 @@
    ></iframe>
 
 
+### 每次渲染都是独立的闭包
+
+https://codepen.io/youzaiyouzai666/pen/oNXOZOw
+
 
 # 进阶
 
