@@ -1,5 +1,19 @@
 https://www.npmjs.cn/
 
+
+
+# 常用命令
+
+## bin
+
+> 它是一个命令名和本地文件名的映射
+>
+> 在安装时，如果是全局安装，npm将会使用符号链接把这些文件链接到prefix/bin(mac 安装在npm -g bin路径下)，
+>
+> 如果是本地安装，会链接到./node_modules/.bin/。
+
+文件的头部必须有这个`#!/usr/bin/env node`节点， 否则脚本将在没有节点可执行文件的情况下启动。
+
 # nrm
 
 https://github.com/Pana/nrm

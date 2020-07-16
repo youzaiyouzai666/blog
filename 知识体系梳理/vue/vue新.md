@@ -94,9 +94,21 @@ Vue.component('anchored-heading', {
 
 
 
-#函数式组件
+**报错：**
 
+```
+Duplicate declaration "h" (This is an error on an internal node. Probably an internal error.)
+复制代码
+```
 
+解决办法：[github.com/vuejs/babel…](https://github.com/vuejs/babel-plugin-transform-vue-jsx/issues/152)
+
+```
+//在.babelrc配置，删掉"@vue/babel-preset-jsx"
+{
+  "presets": ["@vue/app"]
+}
+```
 
 
 

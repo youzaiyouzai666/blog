@@ -164,6 +164,17 @@ C.  cat -n test.log |tail -n +92|head -n 20
 
 # sh命令
 
+## sh
+
+```bash
+#查看全部sh
+cat /etc/shells 
+#切换sh
+chsh -s /bin/zsh
+#查看当前sh
+echo $SHELL
+```
+
 ## 运行
 
 标识
@@ -332,6 +343,8 @@ su user (user是你自己安装时候的用户名)
 直接输入exit，
 也可Ctrl+D组合键推出
 ```
+
+
 
 
 

@@ -183,9 +183,8 @@ git checkout .
 
 ```linux
 //提交到仓库后 也就是 commit命令后
-re 
 git reset --hard HEAD
-git push --forcere  //强制提交到远程分支
+git push -f origin master  //强制提交到远程分支 同名分支
 ```
 
 
@@ -236,6 +235,32 @@ git fetch origin 远程分支名x:本地分支名x
 
 
 
+### 8. [解决 git clone 慢的问题](https://blog.colafornia.me/post/2018/slove-git-clone-speed/)
+
+Git 仓库体积太大
+
+#### commit 历史长，协作分支多导致的仓库自身体积变大
+
+① 浅克隆 shallow clone
+
+```
+git clone --depth n git://someserver/somerepo
+```
+
+② 只 clone 一个分支
+
+```
+git clone URL --branch branch_name --single-branch [folder]
+```
+
+一般可以指定只 clone master 分支到本地，同样了节省了很多时间。
+
+#### 有过多的二进制文件
+
+稀疏检出 sparse checkout
+
+大文件储存 Git LFS
+
 # git hook
 
 ## 1.分类
@@ -284,4 +309,10 @@ git push --tags
 ```
 
 
+
+## 统计代码量
+
+```sh
+git log --author="xxxx" --since="2020-06-22" --until="2020-07-30" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -
+```
 

@@ -12,3 +12,16 @@ Ctrl + Shift + - 前进
 ## 插件
 
 Comment Translate — 注释翻译
+
+
+
+# 使用
+
+## 'code .'命令
+
+将Visual Studio Code 拖到应用
+
+```bash
+export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+```
+

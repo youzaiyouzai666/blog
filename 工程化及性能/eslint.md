@@ -9,7 +9,7 @@ eslint 内置一些规则，也可以自定义规则
 ## 1. eslint  自动修复
 
 ```node
-node_modules/.bin/eslint --fix 'file'    //自动修复
+node_modules/.bin/eslint  --ext .js,.vue  --fix 'file'    //自动修复，默认只修复.js,
 ```
 
 ## 2. vscode 自动格式化
