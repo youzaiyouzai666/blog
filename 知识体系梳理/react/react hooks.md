@@ -2,6 +2,8 @@
 
 [React Hooks 详解](https://juejin.im/post/5dbbdbd5f265da4d4b5fe57d#heading-42)
 
+精华——[React Hooks 原理与最佳实践](https://mp.weixin.qq.com/s/2-nvV2wIJID8xCWeRW2iNQ)
+
 # 基础
 
 ## 动机
@@ -26,9 +28,15 @@
 >
 >### 只在 React 函数中调用 Hook
 
+
+
+
+
 # 使用
 
 ## 基本方法
+
+![image-20200903160332927](/Users/eleme/Library/Application Support/typora-user-images/image-20200903160332927.png)
 
 下面介绍 React 默认提供的四个最常用的钩子。
 
@@ -52,6 +60,11 @@
 
 https://codepen.io/youzaiyouzai666/pen/oNXOZOw
 
+
+
+### **useReducer && useContext**
+
+[【译】在 React Hooks 中使用 useReducer 的几种用例](https://juejin.im/post/6844903817981460493)
 
 # 进阶
 

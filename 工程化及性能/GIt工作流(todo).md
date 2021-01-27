@@ -64,9 +64,97 @@
 refs/heads/master  ## 分支目录
 ```
 
+##### origin—— 到底代表啥意思?
 
+```sh
+git remote -v
+```
+
+输出：
+
+origin  http://gitlab.alibaba-inc.com/ele-agent-frontend.marketing/customer.git (fetch)
+origin  http://gitlab.alibaba-inc.com/ele-agent-frontend.marketing/customer.git (push)
+
+> “origin” 并无特殊含义
+>
+> 远程仓库名字 “origin” 与分支名字 “master” 一样，在 Git 中并没有任何特别的含义一样。 同时 “master” 是当你运行 `git init` 时默认的起始分支名字，原因仅仅是它的广泛使用， “origin” 是当你运行 `git clone` 时默认的远程仓库名字。 如果你运行 `git clone -o booyah`，那么你默认的远程分支名字将会是 `booyah/master`。
+
+## API
+
+### 1. git branch
+
+```sh
+git branch -a   //全部远程分支
+git branch  //查看本地分支
+git branch -vv //查看本地分支及追踪的分支
+```
+
+### 2.git push
+
+```sh
+git push <远程主机名> <本地分支名>:<远程分支名>
+```
+
+如果当前分支只有一个追踪分支，那么主机名都可以省略。
+
+> ```sh
+>  git push
+> ```
+
+> ```sh
+> ## 强制提交（覆盖远端）
+> git push --force origin 
+> ```
+
+上面命令使用`--force`选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用`--force`选项。
+
+最后，`git push`不会推送标签（tag），除非使用`--tags`选项。
+
+> ```sh
+>  git push origin --tags
+> ```
+
+### 3. git fetch
+
+一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到`git fetch`命令。
+
+> ```javascript
+> $ git fetch <远程主机名>
+> ```
+
+上面命令将某个远程主机的更新，全部取回本地。
+
+`git fetch`命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。
+
+默认情况下，`git fetch`取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。
+
+> ```javascript
+> $ git fetch <远程主机名> <分支名>
+> ```
+
+比如，取回`origin`主机的`master`分支。
+
+> ```javascript
+> $ git fetch origin master
+> ```
 
 ## 实践
+
+### git 大小写不敏感
+
+如果只是想应用于当前项目，那么在当前项目中使用执行以下`Git命令`：
+
+```
+git config core.ignorecase false
+```
+
+当然，如果想一劳永逸的话，推荐还是做一个全局配置:
+
+```
+git config --global core.ignorecase false
+```
+
+这样之后的项目都不用担心大小写都问题闹心了。
 
 ### 常用功能
 
@@ -169,7 +257,11 @@ git merge test
 
 ### 4. 版本回退revert&reset(todo)
 
-> 一般分为 在  工作区&暂存区  与 本地仓库与远程仓库
+> 一般分为 在  工作区&暂存区  与 本地仓库与远程仓库、
+>
+> git reset 直接删除提交
+>
+> git revert 新增一次提交
 
 #### 具体解决
 
@@ -189,11 +281,34 @@ git push -f origin master  //强制提交到远程分支 同名分支
 
 
 
+```sh
+git revert 
+```
+
+
+
 ```
 git reflogre
 ```
 
+### 4. 放弃本地，强制拉远程
 
+1.  
+
+   git fetch --all
+
+2.  
+
+   git reset --hard origin/master
+
+3.  
+
+   git pull //可以省略
+
+ 
+
+git fetch 指令是下载远程仓库最新内容，不做合并 
+git reset 指令把HEAD指向master最新版本
 
 ### 5. stash(todo)
 

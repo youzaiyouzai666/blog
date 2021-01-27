@@ -6,11 +6,180 @@
 
 [《深入理解 TypeScript》](https://jkchao.github.io/typescript-book-chinese/#why)
 
-
+[TypeScript - 一种思维方式](https://zhuanlan.zhihu.com/p/63346965)
 
 
 
 ## 基本用法
+
+### 数据类型
+
+#### [interface vs type](https://github.com/SunshowerC/blog/issues/7#type-extends-type)
+
+####  Any 类型
+
+在 TypeScript 中，任何类型都可以被归为 any 类型。这让 any 类型成为了类型系统的顶级类型（也被称作全局超级类型）。
+
+```
+let notSure: any = 666;
+notSure = "Semlinker";
+notSure = false;
+```
+
+`any` 类型本质上是类型系统的一个逃逸舱。作为开发者，这给了我们很大的自由：TypeScript 允许我们对 `any` 类型的值执行任何操作，而无需事先执行任何形式的检查。比如：
+
+```
+let value: any;
+
+value.foo.bar; // OK
+value.trim(); // OK
+value(); // OK
+new value(); // OK
+value[0][1]; // OK
+```
+
+在许多场景下，这太宽松了。使用 `any` 类型，可以很容易地编写类型正确但在运行时有问题的代码。如果我们使用 `any` 类型，就无法使用 TypeScript 提供的大量的保护机制。为了解决 `any` 带来的问题，TypeScript 3.0 引入了 `unknown` 类型。
+
+
+
+#### Unknown 类型
+
+就像所有类型都可以赋值给 `any`，所有类型也都可以赋值给 `unknown`。这使得 `unknown` 成为 TypeScript 类型系统的另一种顶级类型（另一种是 `any`）。下面我们来看一下 `unknown` 类型的使用示例：
+
+```
+let value: unknown;
+
+value = true; // OK
+value = 42; // OK
+value = "Hello World"; // OK
+value = []; // OK
+value = {}; // OK
+value = Math.random; // OK
+value = null; // OK
+value = undefined; // OK
+value = new TypeError(); // OK
+value = Symbol("type"); // OK
+```
+
+对 `value` 变量的所有赋值都被认为是类型正确的。但是，当我们尝试将类型为 `unknown` 的值赋值给其他类型的变量时会发生什么？
+
+```
+let value: unknown;
+
+let value1: unknown = value; // OK
+let value2: any = value; // OK
+let value3: boolean = value; // Error
+let value4: number = value; // Error
+let value5: string = value; // Error
+let value6: object = value; // Error
+let value7: any[] = value; // Error
+let value8: Function = value; // Error
+```
+
+`unknown` 类型只能被赋值给 `any` 类型和 `unknown` 类型本身。直观地说，这是有道理的：只有能够保存任意类型值的容器才能保存 `unknown` 类型的值。毕竟我们不知道变量 `value` 中存储了什么类型的值。
+
+现在让我们看看当我们尝试对类型为 `unknown` 的值执行操作时会发生什么。以下是我们在之前 `any` 章节看过的相同操作：
+
+```
+let value: unknown;
+
+value.foo.bar; // Error
+value.trim(); // Error
+value(); // Error
+new value(); // Error
+value[0][1]; // Error
+```
+
+将 `value` 变量类型设置为 `unknown` 后，这些操作都不再被认为是类型正确的。通过将 `any` 类型改变为 `unknown` 类型，我们已将允许所有更改的默认设置，更改为禁止任何更改。
+
+### 类型断言
+
+#### 1. 类型断言 vs 类型声明[§](https://ts.xcatliu.com/basics/type-assertion#类型断言-vs-类型声明)
+
+#### 2. 类型断言 vs 类型声明[§](https://ts.xcatliu.com/basics/type-assertion#类型断言-vs-类型声明)
+
+在这个例子中：
+
+```ts
+function getCacheData(key: string): any {
+    return (window as any).cache[key];
+}
+
+interface Cat {
+    name: string;
+    run(): void;
+}
+
+const tom = getCacheData('tom') as Cat;
+tom.run();
+```
+
+但实际上还有其他方式可以解决这个问题：
+
+```ts
+function getCacheData(key: string): any {
+    return (window as any).cache[key];
+}
+
+interface Cat {
+    name: string;
+    run(): void;
+}
+
+const tom: Cat = getCacheData('tom');
+tom.run();
+```
+
+#### 3. 类型断言 vs 泛型
+
+还是这个例子：
+
+```ts
+function getCacheData(key: string): any {
+    return (window as any).cache[key];
+}
+
+interface Cat {
+    name: string;
+    run(): void;
+}
+
+const tom = getCacheData('tom') as Cat;
+tom.run();
+```
+
+我们还有第三种方式可以解决这个问题，那就是泛型：
+
+```ts
+function getCacheData<T>(key: string): T {
+    return (window as any).cache[key];
+}
+
+interface Cat {
+    name: string;
+    run(): void;
+}
+
+const tom = getCacheData<Cat>('tom');
+tom.run();
+```
+
+通过给 `getCacheData` 函数添加了一个泛型 `<T>`，我们可以更加规范的实现对 `getCacheData` 返回值的约束，这也同时去除掉了代码中的 `any`，是最优的一个解决方案。
+
+### [类型守卫](https://juejin.im/post/5e538750f265da5762133042)
+
+- 类型判断：`typeof`
+- 实例判断：`instanceof`
+- 属性判断：`in`
+- 字面量相等判断：`==`, `===`, `!=`, `!==`
+
+#### 1.自定义守卫——is
+
+
+
+### [TypeScript 类型拓宽](https://mp.weixin.qq.com/s?__biz=MzI2MjcxNTQ0Nw==&mid=2247484206&idx=1&sn=74f422b2294812075faea2f31994d8b6&chksm=ea47a276dd302b60f9ed3709807f7880b8a5806a31de43910d9dbe3de07b1c3843d11e0d0225&scene=21#wechat_redirect)
+
+
 
 ### [关键字](https://juejin.im/post/5c2f87ce5188252593122c98)
 
@@ -19,6 +188,27 @@
 #### 2.typeof
 
 #### 3.keyof
+
+##### typeof 和 keyof 操作符
+
+在 TypeScript 中，`typeof` 操作符可以用来获取一个变量或对象的类型。而 `keyof` 操作符可以用于获取某种类型的所有键，其返回类型是联合类型。了解完 `typeof` 和 `keyof` 操作符的作用，我们来举个例子，介绍一下它们如何结合在一起使用：
+
+```
+const COLORS = {
+  red: 'red',
+  blue: 'blue'
+}
+
+// 首先通过typeof操作符获取Colors变量的类型，然后通过keyof操作符获取该类型的所有键，
+// 即字符串字面量联合类型 'red' | 'blue'
+type Colors = keyof typeof COLORS 
+let color: Colors;
+color = 'red' // Ok
+color = 'blue' // Ok
+
+// Type '"yellow"' is not assignable to type '"red" | "blue"'.
+color = 'yellow' // Error
+```
 
 #### 4. in
 
@@ -35,6 +225,10 @@ type Obj =  {
 上面 `in` 遍历 `Keys`，并为每个值赋予 `any` 类型。
 
 #### 5.infer
+
+
+
+
 
 ### [内置类型别名](https://juejin.im/post/5c2f87ce5188252593122c98#heading-6)
 
@@ -170,13 +364,16 @@ function getRequestHeaderValue(request: Request, key: HttpRequestKey) {
 }
 ```
 
-
 作者：阿宝哥
 链接：https://juejin.im/post/5e8567d5e51d454708477302
 来源：掘金
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 ## 高阶用法
+
+###  [interface vs type](https://github.com/SunshowerC/blog/issues/7#type-extends-type)
+
+
 
 ###  [Object, object, {}](http://semlinker.com/ts-object-type/) 
 
