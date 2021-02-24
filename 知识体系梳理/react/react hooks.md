@@ -16,6 +16,8 @@
 >
 > ### 难以理解的 class
 
+组件的逻辑复用，https://github.com/brickspert/blog/issues/31
+
 ## hook含义
 
 > Hook 这个单词的意思是"钩子"。
@@ -27,10 +29,6 @@
 >### 只在最顶层使用 Hook
 >
 >### 只在 React 函数中调用 Hook
-
-
-
-
 
 # 使用
 
@@ -100,4 +98,12 @@ const Child = memo(function Child(props) {
 });
 export default App;
 ```
+
+
+
+# hooks中闭包的坑
+
+> https://segmentfault.com/a/1190000020805789
+>
+> https://github.com/hacker0limbo/my-blog/issues/6
 

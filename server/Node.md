@@ -5,6 +5,7 @@
 ```node
 nvm alias default 10 //设置默认版本
 nvm install stable //安装最稳定版本
+export NVM_NODEJS_ORG_MIRROR=https://npm.taobao.org/mirrors/node/    //切换淘宝源
 
 ```
 
