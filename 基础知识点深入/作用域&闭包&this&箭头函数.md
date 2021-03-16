@@ -3,6 +3,7 @@
 ## 1. 静态作用域与动态作用域(JavaScript 静态作用域)
 
 ```javascript
+
 var value = 1;
 
 function foo() {
@@ -17,6 +18,26 @@ function bar() {
 bar(); //1
 
 ```
+
+## 2. 作用域与执行上下文
+
+```javascript
+let name = "John";
+
+function sayHi() {
+  alert("Hi, " + name);
+}
+
+name = "Pete";
+
+sayHi();//Pete
+```
+
+
+
+
+
+
 
 # 作用域与this对比
 
@@ -111,7 +132,7 @@ fn() //window
 
 
 
-# 箭头函数与this
+# 箭头函数与this，闭包
 
 > “箭头函数”的`this`，总是指向定义时所在的对象，而不是运行时所在的对象。
 >
@@ -123,7 +144,7 @@ var obj = {
     name:'obj',
     a: function() {
         console.log(this)
-        window.setTimeout(() => { 
+        window.setTimeout(() => {
             console.log(this.name) 
         }, 0)
     }
@@ -160,6 +181,19 @@ foo.call({id:42});
 
 
 ```javascript
+//对照1
+function foo() {
+  return () => {
+    console.log('id:', this.id);
+  };
+}
+
+var f = foo.call({id: 1});
+f.call({id:2})
+```
+
+```javascript
+//对照2
 function foo() {
   return () => {
     return () => {
@@ -176,6 +210,29 @@ var t1 = f.call({id: 2})()(); // id: 1
 var t2 = f().call({id: 3})(); // id: 1
 var t3 = f()().call({id: 4}); // id: 1
 ```
+
+```javascript
+//对照3
+function foo() {
+  return () => {
+    return function() {
+      return () => {
+        console.log('id:', this.id);
+      };
+    };
+  };
+}
+
+var f = foo.call({id: 1});
+
+var t1 = f.call({id: 2})()(); 
+var t2 = f().call({id: 3})();
+var t3 = f()().call({id: 4});
+```
+
+
+
+
 
 除了`this`，以下三个变量在箭头函数之中也是不存在的，指向外层函数的对应变量：`arguments`、`super`、`new.target`。
 
@@ -362,18 +419,44 @@ foo('wai')
 
 # 闭包
 
+## 经典问题
+
+```jsx
+for (var i = 1; i <= 5; i++) {
+    let j = i;
+    setTimeout(function timer() {
+        console.log(j);
+    },j*1000);
+}
+```
+
+解决
+
+```jsx
+for (var i = 1; i <= 5; i++) {
+    (function() {
+        var j = i;
+        setTimeout( function timer() {
+            console.log(j);
+        },i*1000 ); //这一行将i*1000改为j*1000也行，并不影响
+    })();
+}
+```
+
+## 多层问题
+
 ```JavaScript
 function createIncrement(i) {
   let value = 0;
   function increment() {
     value += i;
     console.log(value);
-    const message = `Current value is ${value}`;
+    const message = `Current value is ${value}`;//1
     return function logValue() {
+    	//const message = `Current value is ${value}`;
       console.log(message);
     };
   }
-  
   return increment;
 }
 
@@ -384,6 +467,8 @@ inc();             // 打印 3
 // 无法正确工作
 log();             // 打印 "Current value is 1"
 ```
+
+//解释： https://segmentfault.com/q/1010000021222813
 
 解决1：
 
@@ -436,3 +521,28 @@ inc();             // 打印 3
 // 正常工作
 log();             // "Current value is 3"
 ```
+
+解决3：
+
+```javascript
+function createIncrementFixed(i) {
+  let message;
+  let value = 0;
+  function increment() {
+    value += i;
+    console.log(value);
+    message = `Current value is ${value}`;
+    return function logValue() {
+      console.log(message);
+    };
+  }
+  return increment;
+}
+
+const inc = createIncrementFixed(1);
+const log = inc(); // 1
+inc();             // 2
+inc();             // 3
+log();             // "Current value is 3"
+```
+

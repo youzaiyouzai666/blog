@@ -107,3 +107,27 @@ export default App;
 >
 > https://github.com/hacker0limbo/my-blog/issues/6
 
+## useState
+
+一开始先点击`Show alert`按钮, 然后立马点击 3 次 `Click me`按钮, 3 秒过后浏览器打印出来的结果为打印出`"You clicked on: 0"`
+
+```javascript
+function App() {
+  const [count, setCount] = useState(0);
+
+  function handleAlertClick() {
+    setTimeout(() => {
+      alert("You clicked on: " + count);
+    }, 3000);
+  }
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+      <button onClick={handleAlertClick}>Show alert</button>
+    </div>
+  );
+}
+```
+
