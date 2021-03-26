@@ -150,6 +150,11 @@ Duplicate declaration "h" (This is an error on an internal node. Probably an int
 
 ## 2. 递归组件
 
+循环组件解决两个问题
+
+1. 模块循环加载问题（1. Es6 import  2. webpack 的异步 `import`  3.vue  beforeCreate 去注册 ）
+2. Vue 找组件方式，默认 是使用组件注册方式，但在循环组件中，组件 name ，可以代替注册
+
 // 递归组件: 组件在它的模板内可以递归的调用自己，只要给组件设置name组件就可以了。
 // 设置那么House在组件模板内就可以递归使用了,不过需要注意的是，
 // 必须给一个条件来限制数量，否则会抛出错误: max stack size exceeded
