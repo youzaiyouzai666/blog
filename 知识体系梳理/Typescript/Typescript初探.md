@@ -1,5 +1,3 @@
-
-
 # 用法
 
 [参考](https://www.tslang.cn/docs/home.html)
@@ -7,6 +5,10 @@
 [《深入理解 TypeScript》](https://jkchao.github.io/typescript-book-chinese/#why)
 
 [TypeScript - 一种思维方式](https://zhuanlan.zhihu.com/p/63346965)
+
+
+
+[[子类型](https://en.wikipedia.org/wiki/Subtyping) 在编程理论上是一个复杂的话题，而他的复杂之处来自于一对经常会被混淆的现象，我们称之为*协变*与*逆变*](https://jkchao.github.io/typescript-book-chinese/tips/covarianceAndContravariance.html#%E4%B8%80%E4%B8%AA%E6%9C%89%E8%B6%A3%E7%9A%84%E9%97%AE%E9%A2%98)
 
 
 

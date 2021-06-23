@@ -1,5 +1,7 @@
 # 作用域
 
+https://gitbook.cn/gitchat/column/5c91c813968b1d64b1e08fde/topic/5c99a854ccb24267c1d0194f
+
 ## 1. 静态作用域与动态作用域(JavaScript 静态作用域)
 
 ```javascript
@@ -206,7 +208,7 @@ function foo() {
 
 var f = foo.call({id: 1});
 
-var t1 = f.call({id: 2})()(); // id: 1
+var t1 = f.call({id: 2})()(); 
 var t2 = f().call({id: 3})(); // id: 1
 var t3 = f()().call({id: 4}); // id: 1
 ```

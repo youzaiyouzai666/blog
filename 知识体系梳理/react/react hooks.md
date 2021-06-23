@@ -4,6 +4,8 @@
 
 精华——[React Hooks 原理与最佳实践](https://mp.weixin.qq.com/s/2-nvV2wIJID8xCWeRW2iNQ)
 
+[复杂状态处理：如何保证状态一致性？](https://time.geekbang.org/column/article/383084)
+
 # 基础
 
 ## 动机

@@ -126,3 +126,8 @@ defer和async
 
 ## 
 
+
+
+## 代理
+
+<img src="/Users/eleme/git/blog/知识体系梳理/网络/http.assets/image-20210619173337451.png" alt="image-20210619173337451" style="zoom:50%;" />

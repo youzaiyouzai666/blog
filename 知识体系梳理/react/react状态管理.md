@@ -1,6 +1,12 @@
+---
+typora-copy-images-to: ../../assets
+---
+
 # 状态管理
 
 [对 React 状态管理的理解及方案对比](https://github.com/sunyongjian/blog/issues/36)
+
+[**一图胜千言, 何况是四图? 图解DVA**](https://www.yuque.com/flying.ni/the-tower/tvzasn)
 
 state 自上而下流向、Props 只读
 
@@ -87,6 +93,14 @@ https://juejin.im/post/5aa25967518825558251f61f
 # redux
 
 ![redux](assets/34917582-5c04bb28-f983-11e7-8fba-aa0f9b3b65dc.jpg)
+
+### 原理
+
+https://juejin.cn/post/6880011662926364679
+
+<img src="/Users/eleme/git/blog/assets/image-20210411115032035.png" alt="image-20210411115032035" style="zoom:50%;" />
+
+![image-20210411115058446](/Users/eleme/git/blog/assets/image-20210411115058446.png)
 
 
 
