@@ -140,6 +140,20 @@ git push <远程主机名> <本地分支名>:<远程分支名>
 
 ## 实践
 
+
+
+### 干掉远程node_modules
+
+```sh
+git rm -r --cached node_modules
+
+git add .
+git commit -m'remove node_modules文件夹'
+git push 
+```
+
+
+
 ### git 大小写不敏感
 
 如果只是想应用于当前项目，那么在当前项目中使用执行以下`Git命令`：

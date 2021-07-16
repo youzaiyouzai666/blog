@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "conventional-changelog-cli": "^2.1.1",
+    "cz-conventional-changelog": "^3.3.0",
     "husky": "^3.0.9"
   },
   "scripts": {
@@ -10,6 +11,11 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run build"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
