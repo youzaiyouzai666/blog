@@ -1,9 +1,11 @@
 {
   "devDependencies": {
+    "conventional-changelog-cli": "^2.1.1",
     "husky": "^3.0.9"
   },
   "scripts": {
-    "build": "node getCatalogue.js"
+    "build": "node getCatalogue.js",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "husky": {
     "hooks": {

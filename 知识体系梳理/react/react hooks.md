@@ -6,6 +6,12 @@
 
 [复杂状态处理：如何保证状态一致性？](https://time.geekbang.org/column/article/383084)
 
+[React Hooks 原理](https://github.com/brickspert/blog/issues/26)
+
+[React Hooks 常见问题及解决方案](https://juejin.cn/post/6875222549446262798#heading-3)
+
+[useEffect 完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
+
 # 基础
 
 ## 动机
@@ -132,4 +138,62 @@ function App() {
   );
 }
 ```
+
+
+
+## useMounted
+
+```react
+import React, { useEffect, useRef, useCallback } from 'react';
+
+export const useMounted = () => {
+  const mountedRef = useRef(false);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+  return () => mountedRef.current;
+};
+
+
+```
+
+
+
+## useState vs setState
+
+- `useState` 只能作用在函数组件，`setState` 只能作用在类组件
+- `useState` 可以在函数组件中声明多个，而类组件中的状态值都必须声明在 `this` 的 `state` 对象中
+- 一般的情况下，`state` 改变时：
+  - `useState` 修改 `state` 时，同一个 `useState` 声明的值会被 **覆盖处理**，多个 `useState` 声明的值会触发 **多次渲染**
+  - `setState` 修改 `state` 时，多次 `setState` 的对象会被 **合并处理**
+- `useState` 修改 `state` 时，设置相同的值，函数组件不会重新渲染，而继承 `Component` 的类组件，即便 `setState` 相同的值，也会触发渲染
+
+
+
+## React使用hook判断组件是否卸载
+
+是在组件卸载后，还调用了setState，造成了内存泄漏。
+
+Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in %s.%s a useEffect cleanup function.
+
+```react
+import React, { useEffect, useRef, useCallback } from 'react';
+
+export const useMounted = () => {
+  const mountedRef = useRef(false);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+  return () => mountedRef.current;
+};
+
+```
+
+
 
