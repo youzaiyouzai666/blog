@@ -1,4 +1,4 @@
-#  (2021-07-16)
+#  (2022-04-08)
 
 
 ### Bug Fixes
@@ -6,6 +6,8 @@
 * 🐛 浮点数 ([dcea067](https://github.com/youzaiyouzai666/blog/commit/dcea06793c38c77454eceaf7e70a6dae2ef1ec51))
 * 🐛 目录生成 ([779b0bf](https://github.com/youzaiyouzai666/blog/commit/779b0bf41b4e2f967cb85e92025dc73cd26a9474))
 * 🐛 目录add ([03876a8](https://github.com/youzaiyouzai666/blog/commit/03876a8875c4bf0820f70affe4b00e5db3cbf3dc))
+* **规范你的commit message 并根据commit自动生成:** 规范你的commit message 并根据commit自动生成changelog.md ([5d1a71d](https://github.com/youzaiyouzai666/blog/commit/5d1a71d3778e7292984eeaa4ca6d0d780bb29936))
+* **git 工作流:** git 工作流的修改 and git commit 提交后话 ([6221de9](https://github.com/youzaiyouzai666/blog/commit/6221de9e9835f0b6f382847164c65872400b419d))
 
 
 ### Features
@@ -16,6 +18,7 @@
 * 🎸 es6基础 ([2a95e2b](https://github.com/youzaiyouzai666/blog/commit/2a95e2b8182a91d100cbe4eba93007447c9cdb94))
 * 🎸 start----- ([dcc1bc8](https://github.com/youzaiyouzai666/blog/commit/dcc1bc832cea2904e3cfdf628f0c267b1fda1945))
 * 🎸 this ([404eb0f](https://github.com/youzaiyouzai666/blog/commit/404eb0ff8a612f610d9f023e251906f011316a71))
+* **base:** 2021年 ([6b0ed37](https://github.com/youzaiyouzai666/blog/commit/6b0ed3731a3e485d2b9529f6ed3dcb33444470c6))
 
 
 
