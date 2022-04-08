@@ -39,6 +39,8 @@
 1. [vue 源码-nextTick](https://github.com/youzaiyouzai666/blog/blob/master/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E6%A2%B3%E7%90%86/vue%E6%BA%90%E7%A0%81-nextTick.md)
 
 ## 目录
+├── .gitignore  
+├── CHANGELOG.md  
 ├── css  
 │   └── [css Modules.md](https://github.com/youzaiyouzai666/blog/blob/master/css/css Modules.md)  
 │   └── [cssGUI加速.md](https://github.com/youzaiyouzai666/blog/blob/master/css/cssGUI加速.md)  
@@ -46,6 +48,7 @@
 │   └── [postCss.md](https://github.com/youzaiyouzai666/blog/blob/master/css/postCss.md)  
 │   └── [sass与less.md](https://github.com/youzaiyouzai666/blog/blob/master/css/sass与less.md)  
 │   └── [transform对普通元素的影响.md](https://github.com/youzaiyouzai666/blog/blob/master/css/transform对普通元素的影响.md)  
+├── package-lock.json  
 ├── server  
 │   └── [Node.md](https://github.com/youzaiyouzai666/blog/blob/master/server/Node.md)  
 │   └── [http-server.md](https://github.com/youzaiyouzai666/blog/blob/master/server/http-server.md)  
@@ -70,6 +73,8 @@
 │       └── [image-20210602150407029.png](https://github.com/youzaiyouzai666/blog/blob/master/代码文档/UML.assets/image-20210602150407029.png)  
 │   └── [UML.md](https://github.com/youzaiyouzai666/blog/blob/master/代码文档/UML.md)  
 │   └── [如何写好代码文档.md](https://github.com/youzaiyouzai666/blog/blob/master/代码文档/如何写好代码文档.md)  
+├── 低代码  
+├── 前端领域主管是刚需，中小前端团队Team Leader如何养成？.md  
 ├── 基础知识点深入  
 │   └── [Babel.md](https://github.com/youzaiyouzai666/blog/blob/master/基础知识点深入/Babel.md)  
 │   └── [Canvas.md](https://github.com/youzaiyouzai666/blog/blob/master/基础知识点深入/Canvas.md)  
@@ -120,6 +125,7 @@
 │   └── [GIt工作流(todo).md](https://github.com/youzaiyouzai666/blog/blob/master/工程化及性能/GIt工作流(todo).md)  
 │   └── [Rollup.md](https://github.com/youzaiyouzai666/blog/blob/master/工程化及性能/Rollup.md)  
 │   └── [eslint.md](https://github.com/youzaiyouzai666/blog/blob/master/工程化及性能/eslint.md)  
+│   └── [git工作流.md](https://github.com/youzaiyouzai666/blog/blob/master/工程化及性能/git工作流.md)  
 │   └── [javasript内存泄漏问题.md](https://github.com/youzaiyouzai666/blog/blob/master/工程化及性能/javasript内存泄漏问题.md)  
 │   └── [mock使用.md](https://github.com/youzaiyouzai666/blog/blob/master/工程化及性能/mock使用.md)  
 │   └── [npm常用包整理.md](https://github.com/youzaiyouzai666/blog/blob/master/工程化及性能/npm常用包整理.md)  
@@ -141,21 +147,24 @@
 │   └── [移动端手机遇到问题.md](https://github.com/youzaiyouzai666/blog/blob/master/工程化及性能/移动端手机遇到问题.md)  
 │   └── [调试.md](https://github.com/youzaiyouzai666/blog/blob/master/工程化及性能/调试.md)  
 │   └── [预加载.md](https://github.com/youzaiyouzai666/blog/blob/master/工程化及性能/预加载.md)  
+├── 理论.md  
 ├── 生活  
 │   └── [沟通.md](https://github.com/youzaiyouzai666/blog/blob/master/生活/沟通.md)  
 │   └── [皮肤过敏.md](https://github.com/youzaiyouzai666/blog/blob/master/生活/皮肤过敏.md)  
 │   └── [视力恢复.md](https://github.com/youzaiyouzai666/blog/blob/master/生活/视力恢复.md)  
 │   └── [说服.md](https://github.com/youzaiyouzai666/blog/blob/master/生活/说服.md)  
+│   └── [非暴力沟通.md](https://github.com/youzaiyouzai666/blog/blob/master/生活/非暴力沟通.md)  
 ├── 知识体系梳理  
 │   ├── Typescript  
 │       └── [Typescript初探.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/Typescript/Typescript初探.md)  
 │   ├── css  
 │       └── [css遇到问题.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/css/css遇到问题.md)  
+│   ├── es6  
+│       └── [Symbol.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/es6/Symbol.md)  
 │   ├── java  
 │       └── [环境.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/java/环境.md)  
 │   ├── react  
 │       └── [ant使用.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/react/ant使用.md)  
-│       └── [mobx.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/react/mobx.md)  
 │       └── [react hooks.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/react/react hooks.md)  
 │       └── [react-diff.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/react/react-diff.md)  
 │       └── [react-ref.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/react/react-ref.md)  
@@ -172,7 +181,9 @@
 │           └── [1-20190102151455996](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/react/react状态管理.assets/1-20190102151455996)  
 │       └── [react状态管理.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/react/react状态管理.md)  
 │       └── [react生命周期.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/react/react生命周期.md)  
+│       └── [react高级.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/react/react高级.md)  
 │       └── [基于配置表单.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/react/基于配置表单.md)  
+│       └── [组件缓存.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/react/组件缓存.md)  
 │   ├── vue  
 │       └── [element.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/element.md)  
 │       └── [vue-ts-jsx.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/vue-ts-jsx.md)  
@@ -183,11 +194,18 @@
 │       └── [vue源码-nextTick.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/vue源码-nextTick.md)  
 │       └── [vue组件间数据传递.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/vue组件间数据传递.md)  
 │       └── [vue高阶组件.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/vue高阶组件.md)  
-│       └── [性能优化.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/性能优化.md)  
+│       └── [性能优化.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/性能优化.md)   
+
+�   ├── 低代码  
+│       └── [储备知识.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/低代码/储备知识.md)  
+│       └── [概述.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/低代码/概述.md)  
 │   ├── 其它  
 │       └── [pdf处理.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/其它/pdf处理.md)  
 │   └── [前端数据范式化.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/前端数据范式化.md)  
 │   └── [复杂数据结构设计.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/复杂数据结构设计.md)  
+│   └── [微应用.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/微应用.md)  
+│   ├── 思考  
+│       └── [底层逻辑.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/思考/底层逻辑.md)  
 │   └── [梳理.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/梳理.md)  
 │   └── [梳理2.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/梳理2.md)  
 │   └── [浮点数.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/浮点数.md)  
@@ -199,7 +217,9 @@
 │           └── [image-20210619173337451.png](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/网络/http.assets/image-20210619173337451.png)  
 │       └── [http.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/网络/http.md)  
 │       └── [https.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/网络/https.md)  
+│       └── [安全.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/网络/安全.md)  
 │       └── [跨域.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/网络/跨域.md)  
+│   └── [设计模式.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/设计模式.md)  
 │   └── [读《React 与 Vue 框架的设计思路大 PK》.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/读《React 与 Vue 框架的设计思路大 PK》.md)  
 │   └── [面试复盘-滴滴.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/面试复盘-滴滴.md)  
 │   └── [面试复盘-高德.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/面试复盘-高德.md)  
@@ -228,11 +248,18 @@
 │   └── [零钱兑换.md](https://github.com/youzaiyouzai666/blog/blob/master/算法/零钱兑换.md)  
 ├── 管理  
 │   └── [可复制的领导力.md](https://github.com/youzaiyouzai666/blog/blob/master/管理/可复制的领导力.md)  
+│   └── [日常工作.md](https://github.com/youzaiyouzai666/blog/blob/master/管理/日常工作.md)  
 │   ├── 管理基础.assets  
 │       └── [image-20210531113552742.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20210531113552742.png)  
 │       └── [image-20210531113616624.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20210531113616624.png)  
 │       └── [image-20210531114149870.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20210531114149870.png)  
+│       └── [image-20220407173916342.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20220407173916342.png)  
+│       └── [image-20220407174012105.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20220407174012105.png)  
+│       └── [image-20220407195146847.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20220407195146847.png)  
+│       └── [image-20220407195213885.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20220407195213885.png)  
+│       └── [image-20220408114717551.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20220408114717551.png)  
 │   └── [管理基础.md](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.md)  
+│   └── [项目管理.md](https://github.com/youzaiyouzai666/blog/blob/master/管理/项目管理.md)  
 ├── 精华  
 │   └── [准备.md](https://github.com/youzaiyouzai666/blog/blob/master/精华/准备.md)  
 │   └── [如何记录笔记.md](https://github.com/youzaiyouzai666/blog/blob/master/精华/如何记录笔记.md)  

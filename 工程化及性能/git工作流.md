@@ -4,3 +4,4 @@
 
 conventional-changelog-cli
 
+commitizen

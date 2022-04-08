@@ -1,5 +1,10 @@
 # 用法
 
+
+
+
+
+
 [参考](https://www.tslang.cn/docs/home.html)
 
 [《深入理解 TypeScript》](https://jkchao.github.io/typescript-book-chinese/#why)
@@ -10,7 +15,25 @@
 
 [[子类型](https://en.wikipedia.org/wiki/Subtyping) 在编程理论上是一个复杂的话题，而他的复杂之处来自于一对经常会被混淆的现象，我们称之为*协变*与*逆变*](https://jkchao.github.io/typescript-book-chinese/tips/covarianceAndContravariance.html#%E4%B8%80%E4%B8%AA%E6%9C%89%E8%B6%A3%E7%9A%84%E9%97%AE%E9%A2%98)
 
+## vscode中如何直接运行ts文件，只需两步：
 
+ step1：typescript和ts-node的安装
+
+```
+npm install -g typescript
+npm install -g ts-node
+复制代码
+```
+
+step2: VScode插件安装 Code Runner
+
+完成以上两步，vscode右上角会有三角运行标志，即可
+
+
+作者：前端草履虫
+链接：https://juejin.cn/post/6979879230318329869
+来源：稀土掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 ## 基本用法
 

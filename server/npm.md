@@ -154,3 +154,7 @@ npm init -y
 
 # [npm-link](https://docs.npmjs.com/cli/link.html)
 
+被链接到全局，路径是`{prefix}/lib/node_modules/<package>`
+
+`npm config get prefix`命令获取到prefix的值(
+

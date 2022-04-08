@@ -282,7 +282,6 @@ git merge test
 ```
 git status       //有提示
 git checkout -- <file>  //未提交到远程
-git checkout .
 ```
 
 
