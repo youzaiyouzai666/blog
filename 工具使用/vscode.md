@@ -1,3 +1,7 @@
+---
+marp: false
+---
+
 # 快捷键
 
 [Mac vscode快捷键](https://segmentfault.com/a/1190000012811886)

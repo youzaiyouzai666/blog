@@ -74,7 +74,6 @@
 │   └── [UML.md](https://github.com/youzaiyouzai666/blog/blob/master/代码文档/UML.md)  
 │   └── [如何写好代码文档.md](https://github.com/youzaiyouzai666/blog/blob/master/代码文档/如何写好代码文档.md)  
 ├── 低代码  
-├── 前端领域主管是刚需，中小前端团队Team Leader如何养成？.md  
 ├── 基础知识点深入  
 │   └── [Babel.md](https://github.com/youzaiyouzai666/blog/blob/master/基础知识点深入/Babel.md)  
 │   └── [Canvas.md](https://github.com/youzaiyouzai666/blog/blob/master/基础知识点深入/Canvas.md)  
@@ -85,8 +84,6 @@
 │   └── [JavaScript浮点数.md](https://github.com/youzaiyouzai666/blog/blob/master/基础知识点深入/JavaScript浮点数.md)  
 │   └── [JavaScript深度copy.md](https://github.com/youzaiyouzai666/blog/blob/master/基础知识点深入/JavaScript深度copy.md)  
 │   └── [XMLHttpRequest.md](https://github.com/youzaiyouzai666/blog/blob/master/基础知识点深入/XMLHttpRequest.md)  
-│   └── [es6.md](https://github.com/youzaiyouzai666/blog/blob/master/基础知识点深入/es6.md)  
-│   └── [es6装饰器.md](https://github.com/youzaiyouzai666/blog/blob/master/基础知识点深入/es6装饰器.md)  
 │   └── [eval() 和 new Function().md](https://github.com/youzaiyouzai666/blog/blob/master/基础知识点深入/eval() 和 new Function().md)  
 │   ├── html  
 │       └── [Form.md](https://github.com/youzaiyouzai666/blog/blob/master/基础知识点深入/html/Form.md)  
@@ -161,6 +158,8 @@
 │       └── [css遇到问题.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/css/css遇到问题.md)  
 │   ├── es6  
 │       └── [Symbol.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/es6/Symbol.md)  
+│       └── [es6.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/es6/es6.md)  
+│       └── [es6装饰器.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/es6/es6装饰器.md)  
 │   ├── java  
 │       └── [环境.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/java/环境.md)  
 │   ├── react  
@@ -194,12 +193,12 @@
 │       └── [vue源码-nextTick.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/vue源码-nextTick.md)  
 │       └── [vue组件间数据传递.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/vue组件间数据传递.md)  
 │       └── [vue高阶组件.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/vue高阶组件.md)  
-│       └── [性能优化.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/性能优化.md)  
-│   ├── 低代码  
-│       └── [储备知识.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/低代码/储备知识.md)  
-│       └── [概述.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/低代码/概述.md)   
+│       └── [性能优化.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/vue/性能优化.md)   
 
-�   ├── 其它  
+�   ├── 低代码  
+│       └── [储备知识.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/低代码/储备知识.md)  
+│       └── [概述.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/低代码/概述.md)  
+│   ├── 其它  
 │       └── [pdf处理.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/其它/pdf处理.md)  
 │   └── [前端数据范式化.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/前端数据范式化.md)  
 │   └── [复杂数据结构设计.md](https://github.com/youzaiyouzai666/blog/blob/master/知识体系梳理/复杂数据结构设计.md)  
@@ -258,6 +257,7 @@
 │       └── [image-20220407195146847.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20220407195146847.png)  
 │       └── [image-20220407195213885.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20220407195213885.png)  
 │       └── [image-20220408114717551.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20220408114717551.png)  
+│       └── [image-20220411155945609.png](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.assets/image-20220411155945609.png)  
 │   └── [管理基础.md](https://github.com/youzaiyouzai666/blog/blob/master/管理/管理基础.md)  
 │   └── [项目管理.md](https://github.com/youzaiyouzai666/blog/blob/master/管理/项目管理.md)  
 ├── 精华  

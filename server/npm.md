@@ -158,3 +158,17 @@ npm init -y
 
 `npm config get prefix`命令获取到prefix的值(
 
+
+## npm-shrinkwrap.json
+https://juejin.cn/post/6844903797668462605
+
+```
+//eg:
+{
+  "dependencies": {
+    "graceful-fs": {
+        "version": "4.2.2"
+    }
+  }
+}
+```
