@@ -1,4 +1,6 @@
 
+# Python
+[Python数据科学手册](https://yun.weicheng.men/Book/Python%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E6%89%8B%E5%86%8C.pdf)
 # 环境
 ## 安装
 ```
@@ -7,6 +9,16 @@ python3
 print('hello, world')
 exit()
 ```
+## pypi
+[pypi](https://pypi.org/)
+
+#### 如何将自己的Python包发布到PyPI上
+[参考](https://packaging.python.org/tutorials/packaging-projects/)
+[中文参考](https://developer.aliyun.com/article/936284)
+
+## pip
+[pip](https://pip.pypa.io/en/stable/)
+
 
 ## Miniconda安装与使用
 [参考](https://lfpara.com/docs/hpc/tools/miniconda3/miniconda3.html)
