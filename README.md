@@ -55,7 +55,6 @@
 │   ├── 管理  
 │       └── [可复制的领导力.md](https://github.com/youzaiyouzai666/blog/blob/master/内功心法/管理/可复制的领导力.md)  
 │       └── [团队日常管理.md](https://github.com/youzaiyouzai666/blog/blob/master/内功心法/管理/团队日常管理.md)  
-│       └── [日常工作.md](https://github.com/youzaiyouzai666/blog/blob/master/内功心法/管理/日常工作.md)  
 │       ├── 管理基础.assets  
 │           └── [image-20210531113552742.png](https://github.com/youzaiyouzai666/blog/blob/master/内功心法/管理/管理基础.assets/image-20210531113552742.png)  
 │           └── [image-20210531113616624.png](https://github.com/youzaiyouzai666/blog/blob/master/内功心法/管理/管理基础.assets/image-20210531113616624.png)  
@@ -71,6 +70,8 @@
 │   └── [职场成长.md](https://github.com/youzaiyouzai666/blog/blob/master/内功心法/职场成长.md)  
 │   └── [表达能力.md](https://github.com/youzaiyouzai666/blog/blob/master/内功心法/表达能力.md)  
 │   └── [被拒绝的恐惧.md](https://github.com/youzaiyouzai666/blog/blob/master/内功心法/被拒绝的恐惧.md)  
+│   ├── 认知  
+│       └── [基础.md](https://github.com/youzaiyouzai666/blog/blob/master/内功心法/认知/基础.md)  
 ├── 历史  
 │   ├── server  
 │       └── [Node.md](https://github.com/youzaiyouzai666/blog/blob/master/历史/server/Node.md)  
@@ -183,10 +184,12 @@
 │   ├── 知识体系梳理  
 │       ├── Typescript  
 │           └── [Typescript初探.md](https://github.com/youzaiyouzai666/blog/blob/master/历史/知识体系梳理/Typescript/Typescript初探.md)  
-│           └── [typesecript深入.md](https://github.com/youzaiyouzai666/blog/blob/master/历史/知识体系梳理/Typescript/typesecript深入.md)  
-│       ├── css  
-│           └── [css遇到问题.md](https://github.com/youzaiyouzai666/blog/blob/master/历史/知识体系梳理/css/css遇到问题.md)  
-│       ├── es6  
+│           └── [typesecript深入.md](https://github.com/youzaiyouzai666/blog/blob/master/历史/知识体系梳理/Typescript/typesecript深入.md)   
+
+�       ├── css  
+│           └── [css遇到问题.md](https://github.com/youzaiyouzai666/blog/blob/master/历史/知识体系梳理/css/css遇到问题.md)   
+
+�       ├── es6  
 │           └── [Symbol.md](https://github.com/youzaiyouzai666/blog/blob/master/历史/知识体系梳理/es6/Symbol.md)  
 │           └── [es6.md](https://github.com/youzaiyouzai666/blog/blob/master/历史/知识体系梳理/es6/es6.md)  
 │           └── [es6装饰器.md](https://github.com/youzaiyouzai666/blog/blob/master/历史/知识体系梳理/es6/es6装饰器.md)  
@@ -293,6 +296,8 @@
 │   └── [react渲染过程.md](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/react渲染过程.md)  
 │   └── [react状态管理.md](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/react状态管理.md)  
 │   └── [typescript升级打怪.md](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/typescript升级打怪.md)  
+│   ├── 业务  
+│       └── [增长.md](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/业务/增长.md)  
 │   ├── 人工智能  
 │       └── [Python.md](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/人工智能/Python.md)  
 │       └── [TensorFlow.md](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/人工智能/TensorFlow.md)  
@@ -302,6 +307,7 @@
 │           └── [Python深度学习.pdf](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/人工智能/书籍/Python深度学习.pdf)  
 │           └── [机器学习_周志华.pdf](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/人工智能/书籍/机器学习_周志华.pdf)  
 │       └── [前沿资讯.md](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/人工智能/前沿资讯.md)  
+│       └── [大模型.md](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/人工智能/大模型.md)  
 │       └── [学习资料&概念.md](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/人工智能/学习资料&概念.md)  
 │       └── [实践.md](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/人工智能/实践.md)  
 │       └── [数学知识.md](https://github.com/youzaiyouzai666/blog/blob/master/深入浅出/人工智能/数学知识.md)  
