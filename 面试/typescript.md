@@ -73,3 +73,27 @@ function infiniteLoop(): never {
 1. 可定义任何类型的别名（包括原始类型、联合类型等)
 2. 同名类型别名会报错
 3. 通过交叉类型 & 组合
+
+# 手写
+
+```
+type myPick<T, K extends keyof T> = {
+  [key in K]: T[key];
+};
+```
+
+```
+type pickByType<T,U> = {
+  [K in keyof T as T[K] extends U ? K : never]: T[K]
+}
+```
+
+```
+type myExclude<T, U> = T extends U ? never : T;
+```
+
+```
+type myOmit<T, K extends keyof T> = {
+  [key in Exclude<keyof T, K>]: T[key];
+};
+```
